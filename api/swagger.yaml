@@ -1,0 +1,174 @@
+openapi: 3.0.0
+info:
+  title: AgirPourLEnvironnement
+  description: |
+    Api for the website of the asssociation ***Agir pour l'environnement***. 
+      This Api contains the different calls to interact with data about:
+    * The services supported by the association 
+    * The persons involved 
+    * The different events organised.
+  version: 0.0.0
+
+servers:
+  - url: "{server}/v0"
+    variables:
+      server:
+        default: http://localhost:8080
+
+tags:
+  - name: Service
+    description: Interact with data related to services supported by the association
+  - name: Event
+    description: Interact with data related to person involved in the association
+  - name: Person
+    description: Interact with data related to event organised by the association
+paths:
+  /Event:
+    get:
+      tags:
+      - "Event"
+      summary: "return the list of all events"
+      description: ""
+      operationId: "getAllEvent"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/EventDescription"
+
+  /Event/{event_id}:
+    get:
+      tags:
+      - "Event"
+      summary : "return the event that corresponds to the id"
+      operationId : "getEvent" 
+      parameters:
+        - in: "path"
+          name: "event_id"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /Event/{event_id}:
+    get:
+      tags:
+      - "Event"
+      summary : "returns the contact of the event"
+      operationId : "getContact" 
+      parameters:
+        - in: path
+          name: "event_id"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Person"
+    
+/Person:
+    get:
+      tags:
+      - "Person"
+      summary: "return the list of all persons"
+      description: ""
+      operationId: "getAllPersons"
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Person"
+
+  /Person/{person_id}:
+    get:
+      tags:
+      - "Person"
+      summary : "return the person that corresponds to the id"
+      operationId : "getPerson"
+      parameters:
+        - in: path
+          name: "person_id"
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Person"
+  
+
+components:
+  schemas:
+    Event:
+      properties:
+        event_id:
+          type: integer
+        name:
+          type: string
+        pratical_info:
+          type: array
+          items:
+            type: string
+        presentation:
+          type: string
+        photo:
+          type: array
+          items:
+            type: string
+            format: byte
+        start_date:
+          type: string
+          format: date
+        end_date:
+          type: string
+          format: date
+        contact: 
+          type: string
+    ServiceDescription:
+      properties:
+        event_id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        photo_description:
+          type: string
+          format: byte
+
+    Person:
+      properties:
+        person_id:
+          type: integer
+        first_name:
+          type: string
+        last_name:
+          type: string
+        description:
+          type: string
+        photo:
+          type: array
+          items:
+            type: string
+            format: byte
