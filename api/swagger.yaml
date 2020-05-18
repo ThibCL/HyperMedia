@@ -41,6 +41,23 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/EventDescription"
+  
+  /event:
+    get:
+      tags:
+      - Event
+      summary: return the list of all events sorted by month
+      description: 
+      operationId: getAllEventByMonth
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EventDescription" 
 
   /event/{event_id}:
     get:
@@ -182,7 +199,11 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Event" 
+                  oneOf:
+                    - type: string
+                    - type: array 
+                      items:
+                        $ref: "#/components/schemas/Event" 
 
 
 /person:
