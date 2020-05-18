@@ -1,4 +1,4 @@
-openapi: 3.0.0
+swagger: "2.0"
 info:
   title: AgirPourLEnvironnement
   description: |
@@ -9,11 +9,10 @@ info:
     * The different events organised.
   version: 0.0.0
 
-servers:
-  - url: "{server}/v0"
-    variables:
-      server:
-        default: http://localhost:8080
+host: localhost:8080
+basePath: /v0
+schemes:
+  - https
 
 tags:
   - name: Service
@@ -22,53 +21,36 @@ tags:
     description: Interact with data related to person involved in the association
   - name: Person
     description: Interact with data related to event organised by the association
+  - name: User
+    description: Interact with data related with user.
+
 paths:
-  /Event:
+  /event:
     get:
       tags:
-      - "Event"
-      summary: "return the list of all events"
-      description: ""
-      operationId: "getAllEvent"
+      - Event
+      summary: return the list of all events
+      description: 
+      operationId: getAllEvent
       responses:
         "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                type: "array"
+                type: array
                 items:
                   $ref: "#/components/schemas/EventDescription"
 
-  /Event/{event_id}:
+  /event/{event_id}:
     get:
       tags:
-      - "Event"
-      summary : "return the event that corresponds to the id"
-      operationId : "getEvent" 
-      parameters:
-        - in: "path"
-          name: "event_id"
-          required: true
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Event"
-
-  /Event/{event_id}:
-    get:
-      tags:
-      - "Event"
-      summary : "returns the contact of the event"
-      operationId : "getContact" 
+      - Event
+      summary : return the event that corresponds to the id
+      operationId : getEvent
       parameters:
         - in: path
-          name: "event_id"
+          name: event_id
           required: true
           schema:
             type: integer
@@ -78,34 +60,157 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Person"
-    
-/Person:
+                $ref: "#/components/schemas/Event" 
+
+  /event/{event-id}:
     get:
       tags:
-      - "Person"
-      summary: "return the list of all persons"
-      description: ""
-      operationId: "getAllPersons"
+      - event
+      summary: returns the next event 
+      description:
+      operationId: getNextEvent
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          schema:
+            type: integer      
       responses:
         "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                type: "array"
+                $ref: "#/components/schemas/Event" 
+
+/event/{event-id}:
+    get:
+      tags:
+      - event
+      summary: returns the previous event 
+      description:
+      operationId: getPreviousEvent
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          schema:
+            type: integer  
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event" 
+
+
+
+/event/{event-id}:
+    get:
+      tags:
+      - event
+      summary: returns the next event that presents the service in query
+      description:
+      operationId: getNextEvent
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          schema:
+            type: integer  
+        - in: query
+          name: service 
+          description: service id of the service we are doing the gided tour in
+          required : true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event" 
+
+/event/{event-id}:
+    get:
+      tags:
+      - event
+      summary: returns the previous event that presents the service in query
+      description:
+      operationId: getPreviousEvent
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          schema:
+            type: integer  
+        - in: query
+          name: service 
+          description: service id of the service we are doing the gided tour in
+          required : true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event" 
+
+/event:
+    get:
+      tags:
+      - event
+      summary: returns the event that presents a service
+      description:
+      operationId: getEventPresentsService
+      parameters:
+        - in: query
+          name: service 
+          description: service id of the service we want the event
+          required : true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event" 
+
+
+/person:
+    get:
+      tags:
+      - Person
+      summary: returns the list of all persons
+      description: 
+      operationId: getAllPersons
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
                 items:
                   $ref: "#/components/schemas/Person"
 
-  /Person/{person_id}:
+  /person/{person_id}:
     get:
       tags:
-      - "Person"
-      summary : "return the person that corresponds to the id"
-      operationId : "getPerson"
+      - Person
+      summary : return the person that corresponds to the id
+      operationId : getPerson
       parameters:
         - in: path
-          name: "person_id"
+          name: person_id
           required: true
           schema:
             type: integer
@@ -115,18 +220,61 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Person"
-  
+                  $ref: "#/components/schemas/Person"
+
+  /person/contact/event/{event-id}:
+    get:
+      tags:
+        - Person
+      summary: Returns the contact person of the specified event
+      operationId: getPersonContact
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Sucessful operation
+          schema:
+            $ref: "#/components/schemas/Person"
+
+  /person/involved-in/service/{service-id}:
+    get:
+      tags:
+        - Person
+      summary: Return the person involved in the service specified
+      operationId: getPersonInvolvedIn
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: service-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Sucessful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Person"
 
 components:
   schemas:
     Event:
       properties:
-        event_id:
+        event-id:
           type: integer
         name:
           type: string
-        pratical_info:
+        pratical-info:
           type: array
           items:
             type: string
@@ -137,33 +285,33 @@ components:
           items:
             type: string
             format: byte
-        start_date:
+        start-date:
           type: string
           format: date
-        end_date:
+        end-date:
           type: string
           format: date
         contact: 
           type: string
-    ServiceDescription:
+    EventDescription:
       properties:
-        event_id:
+        event-id:
           type: integer
         name:
           type: string
         description:
           type: string
-        photo_description:
+        photo-description:
           type: string
           format: byte
 
     Person:
       properties:
-        person_id:
+        person-id:
           type: integer
-        first_name:
+        first-name:
           type: string
-        last_name:
+        last-name:
           type: string
         description:
           type: string
