@@ -31,6 +31,8 @@ paths:
       - Event
       summary: return the list of all events
       operationId: getAllEvent
+      produces:
+        - application/json
       responses:
         "200":
           description: Successful operation
@@ -47,19 +49,23 @@ paths:
       - Event
       summary: return the list of all events sorted by month
       operationId: getAllEventByMonth
+      produces:
+        - application/json
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  oneOf:
-                    - type: string
-                    - type: array 
-                      items:
-                        $ref: "#/definitions/Event" 
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                events:
+                  type: array
+                  items: 
+                    $ref: "#/definitions/EventDescription"
 
   /event/{event_id}:
     get:
@@ -67,6 +73,8 @@ paths:
       - Event
       summary : return the event that corresponds to the id
       operationId : getEventByID
+      produces:
+        - application/json
       parameters:
         - in: path
           name: event_id
@@ -77,17 +85,17 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/definitions/Event" 
+          schema:
+            $ref: "#/definitions/Event" 
 
-  /event/next/{event-id}:
+  /event/{event-id}/next :
     get:
       tags:
       - event
       summary: returns the next event 
       operationId: getNextEvent
+      produces:
+        - application/json
       parameters:
         - in: path
           name: event-id
@@ -98,17 +106,17 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/definitions/Event" 
+          schema:
+            $ref: "#/definitions/Event" 
 
-/event/previous/{event-id}:
+  /event/{event-id}/previous :
     get:
       tags:
       - event
       summary: returns the previous event 
       operationId: getPreviousEvent
+      produces:
+        - application/json
       parameters:
         - in: path
           name: event-id
@@ -119,19 +127,19 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/definitions/Event" 
+          schema:
+            $ref: "#/definitions/Event" 
 
 
 
-/event/next-service/{event-id}:
+  /event/{event-id}/nextPresents :
     get:
       tags:
       - event
       summary: returns the next event that presents the service in query
-      operationId: getNextPresentedinEvent
+      operationId: getNextPresentsEvent
+      produces:
+        - application/json
       parameters:
         - in: path
           name: event-id
@@ -148,17 +156,17 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/definitions/schemas/Event" 
+          schema:
+            $ref: "#/definitions/schemas/Event" 
 
-/event/previous-service/{event-id}:
+  /event/{event-id}/previousPresents:
     get:
       tags:
       - event
       summary: returns the previous event that presents the service in query
-      operationId: getPreviousPresentedInEvent
+      operationId: getPreviousPresentsEvent
+      produces:
+        - application/json
       parameters:
         - in: path
           name: event-id
@@ -176,17 +184,17 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/definitions/Event" 
+          schema:
+            $ref: "#/definitions/Event" 
 
-/event/presents:
+  /event/presents:
     get:
       tags:
       - event
       summary: returns the event that presents a service
       operationId: getEventPresentsService
+      produces:
+        - application/json
       parameters:
         - in: query
           name: service 
@@ -198,29 +206,27 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/definitions/Event" 
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Event" 
 
 
-/person:
+  /person:
     get:
       tags:
       - Person
       summary: returns the list of all persons
       operationId: getAllPersons
+      produces:
+        - application/json
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/definitions/Person"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Person"
 
   /person/{person_id}:
     get:
@@ -228,6 +234,8 @@ paths:
       - Person
       summary : return the person that corresponds to the id
       operationId : getPersonByID
+      produces:
+        - application/json
       parameters:
         - in: path
           name: person_id
@@ -238,10 +246,8 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                  $ref: "#/definitions/Person"
+          schema:
+            $ref: "#/definitions/Person"
 
   /person/contact/event/{event-id}:
     get:
@@ -287,71 +293,100 @@ paths:
             items:
               $ref: "#/definitions/Person"
 
-  definitions:
-    Event:
-      properties:
-        event-id:
-          type: integer
-        name:
+definitions:
+  Event:
+    properties:
+      event-id:
+        type: integer
+        format: int64
+        minimum: 1
+        example: 3
+      name:
+        type: string
+        example: "garbage collection at the Seine banks."
+      pratical-info:
+        type: array
+        items:
           type: string
-        pratical-info:
-          type: array
-          items:
-            type: string
-        presentation:
-          type: string
-        photo:
-          type: array
-          items:
-            type: string
-            minLength: 1
-        start-date:
-          type: string
-          format: date
-        end-date:
-          type: string
-          format: date
-        contact: 
-          type: string
-      required:
-        - event-id
-        - name
-    EventDescription:
-      properties:
-        event-id:
-          type: integer
-        name:
-          type: string
-        description:
-          type: string
-        photo-description:
+        example:
+          [
+            "A document that summarizes all the information is available here ...",
+            "If you want to propose some ideas you can send an email to ...",
+          ]
+      presentation:
+        type: string
+        example : "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!"
+      photos:
+        type: array
+        items:
           type: string
           minLength: 1
-        start-date:
-          type: string
-          format: date
-        end-date:
-          type: string
-          format: date
-      required:
-        - event-id
-        - name  
+        example: ["garbage2020-10-23", "some-participant","before-after"  ]
 
-    Person:
-      properties:
-        person-id:
-          type: integer
-        first-name:
+      start-date:
+        type: string
+        format: date
+        example: "2020-10-23"
+      end-date:
+        type: string
+        format: date
+        example: "2020-10-23"
+      contact: 
+        type: string
+    required:
+      - event-id
+      - name
+
+  EventDescription:
+    properties:
+      event-id:
+        type: integer
+        format: int64
+        minimum: 1
+        example: 3
+      name:
+        type: string
+        example: "garbage collection at the Seine banks."
+      description:
+        type: string
+      photo-description:
+        type: string
+        minLength: 1
+        example : "garbage-collection-2020-10-23"
+      start-date:
+        type: string
+        format: date
+        example: "2020-10-23"
+      end-date:
+        type: string
+        format: date
+        example: "2020-10-23"
+    required:
+      - event-id
+      - name  
+
+  Person:
+    properties:
+      person-id:
+        type: integer
+        format: int64
+        minimum: 1
+        example: 3
+      first-name:
+        type: string
+        example: "Micheal"
+      last-name:
+        type: string
+        example : "jordan"
+      description:
+        type: string
+        example : "One of our most dedicated member. Joined in 2018 and is now responsible for the event organisation."
+      photo:
+        type: array
+        items:
           type: string
-        last-name:
-          type: string
-        description:
-          type: string
-        photo:
-          type: array
-          items:
-            type: string
-            minLength: 1
-      required:
-        - person-id
-        - name
+          minLength: 1
+        example : ["michael-jordan","micheal-at-his-first-event"]
+    required:
+      - person-id
+      - name
