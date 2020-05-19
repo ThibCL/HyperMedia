@@ -301,10 +301,10 @@ paths:
         presentation:
           type: string
         photo:
-        type: array
-        items:
-          type: string
-          minLength: 1
+          type: array
+          items:
+            type: string
+            minLength: 1
         start-date:
           type: string
           format: date
@@ -325,8 +325,8 @@ paths:
         description:
           type: string
         photo-description:
-        type: string
-        minLength: 1
+          type: string
+          minLength: 1
         start-date:
           type: string
           format: date
@@ -351,7 +351,7 @@ paths:
           type: array
           items:
             type: string
-            format: byte
+            minLength: 1
       required:
         - person-id
         - name
