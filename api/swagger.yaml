@@ -30,7 +30,6 @@ paths:
       tags:
       - Event
       summary: return the list of all events
-      description: 
       operationId: getAllEvent
       responses:
         "200":
@@ -40,157 +39,14 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/EventDescription"
+                  $ref: "#/definitions/EventDescription"
   
-  /event:
+  /event/by-month:
     get:
       tags:
       - Event
       summary: return the list of all events sorted by month
-      description: 
       operationId: getAllEventByMonth
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/components/schemas/EventDescription" 
-
-  /event/{event_id}:
-    get:
-      tags:
-      - Event
-      summary : return the event that corresponds to the id
-      operationId : getEvent
-      parameters:
-        - in: path
-          name: event_id
-          required: true
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Event" 
-
-  /event/{event-id}:
-    get:
-      tags:
-      - event
-      summary: returns the next event 
-      description:
-      operationId: getNextEvent
-      parameters:
-        - in: path
-          name: event-id
-          required: true
-          schema:
-            type: integer      
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Event" 
-
-/event/{event-id}:
-    get:
-      tags:
-      - event
-      summary: returns the previous event 
-      description:
-      operationId: getPreviousEvent
-      parameters:
-        - in: path
-          name: event-id
-          required: true
-          schema:
-            type: integer  
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Event" 
-
-
-
-/event/{event-id}:
-    get:
-      tags:
-      - event
-      summary: returns the next event that presents the service in query
-      description:
-      operationId: getNextEvent
-      parameters:
-        - in: path
-          name: event-id
-          required: true
-          schema:
-            type: integer  
-        - in: query
-          name: service 
-          description: service id of the service we are doing the gided tour in
-          required : true
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Event" 
-
-/event/{event-id}:
-    get:
-      tags:
-      - event
-      summary: returns the previous event that presents the service in query
-      description:
-      operationId: getPreviousEvent
-      parameters:
-        - in: path
-          name: event-id
-          required: true
-          schema:
-            type: integer  
-        - in: query
-          name: service 
-          description: service id of the service we are doing the gided tour in
-          required : true
-          schema:
-            type: integer
-      responses:
-        "200":
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: "#/components/schemas/Event" 
-
-/event:
-    get:
-      tags:
-      - event
-      summary: returns the event that presents a service
-      description:
-      operationId: getEventPresentsService
-      parameters:
-        - in: query
-          name: service 
-          description: service id of the service we want the event
-          required : true
-          schema:
-            type: integer
       responses:
         "200":
           description: Successful operation
@@ -203,7 +59,151 @@ paths:
                     - type: string
                     - type: array 
                       items:
-                        $ref: "#/components/schemas/Event" 
+                        $ref: "#/definitions/Event" 
+
+  /event/{event_id}:
+    get:
+      tags:
+      - Event
+      summary : return the event that corresponds to the id
+      operationId : getEventByID
+      parameters:
+        - in: path
+          name: event_id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/Event" 
+
+  /event/next/{event-id}:
+    get:
+      tags:
+      - event
+      summary: returns the next event 
+      operationId: getNextEvent
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1   
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/Event" 
+
+/event/previous/{event-id}:
+    get:
+      tags:
+      - event
+      summary: returns the previous event 
+      operationId: getPreviousEvent
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/Event" 
+
+
+
+/event/next-service/{event-id}:
+    get:
+      tags:
+      - event
+      summary: returns the next event that presents the service in query
+      operationId: getNextPresentedinEvent
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1 
+        - in: query
+          name: service 
+          description: service id of the service we are doing the gided tour in
+          required : true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/schemas/Event" 
+
+/event/previous-service/{event-id}:
+    get:
+      tags:
+      - event
+      summary: returns the previous event that presents the service in query
+      operationId: getPreviousPresentedInEvent
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+        - in: query
+          name: service 
+          description: service id of the service we are doing the guided tour in
+          required : true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/definitions/Event" 
+
+/event/presents:
+    get:
+      tags:
+      - event
+      summary: returns the event that presents a service
+      operationId: getEventPresentsService
+      parameters:
+        - in: query
+          name: service 
+          description: service id of the service we want the event
+          required : true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/definitions/Event" 
 
 
 /person:
@@ -211,7 +211,6 @@ paths:
       tags:
       - Person
       summary: returns the list of all persons
-      description: 
       operationId: getAllPersons
       responses:
         "200":
@@ -221,27 +220,28 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Person"
+                  $ref: "#/definitions/Person"
 
   /person/{person_id}:
     get:
       tags:
       - Person
       summary : return the person that corresponds to the id
-      operationId : getPerson
+      operationId : getPersonByID
       parameters:
         - in: path
           name: person_id
           required: true
-          schema:
-            type: integer
+          type: integer
+          format: int64
+          minimum: 1
       responses:
         "200":
           description: Successful operation
           content:
             application/json:
               schema:
-                  $ref: "#/components/schemas/Person"
+                  $ref: "#/definitions/Person"
 
   /person/contact/event/{event-id}:
     get:
@@ -262,7 +262,7 @@ paths:
         "200":
           description: Sucessful operation
           schema:
-            $ref: "#/components/schemas/Person"
+            $ref: "#/definitions/Person"
 
   /person/involved-in/service/{service-id}:
     get:
@@ -287,8 +287,7 @@ paths:
             items:
               $ref: "#/definitions/Person"
 
-components:
-  schemas:
+  definitions:
     Event:
       properties:
         event-id:
@@ -302,10 +301,10 @@ components:
         presentation:
           type: string
         photo:
-          type: array
-          items:
-            type: string
-            format: byte
+        type: array
+        items:
+          type: string
+          minLength: 1
         start-date:
           type: string
           format: date
@@ -314,6 +313,9 @@ components:
           format: date
         contact: 
           type: string
+      required:
+        - event-id
+        - name
     EventDescription:
       properties:
         event-id:
@@ -323,8 +325,17 @@ components:
         description:
           type: string
         photo-description:
+        type: string
+        minLength: 1
+        start-date:
           type: string
-          format: byte
+          format: date
+        end-date:
+          type: string
+          format: date
+      required:
+        - event-id
+        - name  
 
     Person:
       properties:
@@ -341,3 +352,6 @@ components:
           items:
             type: string
             format: byte
+      required:
+        - person-id
+        - name
