@@ -36,12 +36,10 @@ paths:
       responses:
         "200":
           description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: "#/definitions/EventDescription"
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventDescription"
   
   /event/by-month:
     get:
@@ -151,13 +149,12 @@ paths:
           name: service 
           description: service id of the service we are doing the gided tour in
           required : true
-          schema:
-            type: integer
+          type: integer
       responses:
         "200":
           description: Successful operation
           schema:
-            $ref: "#/definitions/schemas/Event" 
+            $ref: "#/definitions/Event" 
 
   /event/{event-id}/previousPresents:
     get:
