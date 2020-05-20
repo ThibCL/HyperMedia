@@ -1,0 +1,23 @@
+{
+  "name": "agirpourlenvironnement",
+  "version": "0.0.0",
+  "description": "Api for the website of the asssociation ***Agir pour l'environnement***.    This Api contains the different calls to interact with data about: * The services supported by the association  * The persons involved  * The different events organised. ",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "knex": "^0.21.1",
+    "pg": "^8.2.1",
+    "serve-static": "^1.14.1",
+    "swagger-tools": "0.10.1"
+  }
+}
