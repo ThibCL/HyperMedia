@@ -246,7 +246,7 @@ paths:
           schema:
             $ref: "#/definitions/Person"
 
-  /person/contact/event/:
+  /person/contact:
     get:
       tags:
         - Person
@@ -267,7 +267,7 @@ paths:
           schema:
             $ref: "#/definitions/Person"
 
-  /person/involved-in/service/:
+  /person/involved-in:
     get:
       tags:
         - Person
