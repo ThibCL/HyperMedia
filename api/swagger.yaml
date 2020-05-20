@@ -391,21 +391,6 @@ paths:
           description: unauthorized
 
 definitions:
-  User:
-    properties:
-      user-id:
-        type: integer
-        format: int64
-        minimum: 1
-        example: 3
-      username:
-        type: string
-        minLength: 1
-        example: "Thibz"
-    required:
-      - user-id
-      - username
-
   Service:
     properties:
       service-id:
@@ -568,3 +553,18 @@ definitions:
     required:
       - person-id
       - name
+
+  User:
+    properties:
+      user-id:
+        type: integer
+        format: int64
+        minimum: 1
+        example: 3
+      username:
+        type: string
+        minLength: 1
+        example: "Thibz"
+    required:
+      - user-id
+      - username
