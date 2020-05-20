@@ -65,7 +65,7 @@ paths:
                   items: 
                     $ref: "#/definitions/EventDescription"
 
-  /event/{event_id}:
+  /event/{event-id}:
     get:
       tags:
       - Event
@@ -75,7 +75,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: event_id
+          name: event-id
           required: true
           type: integer
           format: int64
@@ -147,7 +147,7 @@ paths:
           minimum: 1 
         - in: query
           name: service 
-          description: service id of the service we are doing the gided tour in
+          description: service id of the service we are doing the guided tour in
           required : true
           type: integer
       responses:
@@ -194,8 +194,8 @@ paths:
         - application/json
       parameters:
         - in: query
-          name: service 
-          description: service id of the service we want the event
+          name: service-id
+          description: the service that we want presented in the events 
           required : true
           type: integer
           format: int64
@@ -225,7 +225,7 @@ paths:
             items:
               $ref: "#/definitions/Person"
 
-  /person/{person_id}:
+  /person/{person-id}:
     get:
       tags:
       - Person
@@ -235,7 +235,7 @@ paths:
         - application/json
       parameters:
         - in: path
-          name: person_id
+          name: person-id
           required: true
           type: integer
           format: int64
@@ -246,7 +246,7 @@ paths:
           schema:
             $ref: "#/definitions/Person"
 
-  /person/contact/event/{event-id}:
+  /person/contact/event/:
     get:
       tags:
         - Person
@@ -255,7 +255,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: path
+        - in: query
           name: event-id
           required: true
           type: integer
@@ -267,7 +267,7 @@ paths:
           schema:
             $ref: "#/definitions/Person"
 
-  /person/involved-in/service/{service-id}:
+  /person/involved-in/service/:
     get:
       tags:
         - Person
@@ -276,7 +276,7 @@ paths:
       produces:
         - application/json
       parameters:
-        - in: path
+        - in: query
           name: service-id
           required: true
           type: integer
