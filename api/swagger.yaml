@@ -1,0 +1,389 @@
+swagger: "2.0"
+info:
+  title: AgirPourLEnvironnement
+  description: |
+    Api for the website of the asssociation ***Agir pour l'environnement***. 
+      This Api contains the different calls to interact with data about:
+    * The services supported by the association 
+    * The persons involved 
+    * The different events organised.
+  version: 0.0.0
+
+host: localhost:8080
+basePath: /v0
+schemes:
+  - https
+
+tags:
+  - name: Service
+    description: Interact with data related to services supported by the association
+  - name: Event
+    description: Interact with data related to person involved in the association
+  - name: Person
+    description: Interact with data related to event organised by the association
+  - name: User
+    description: Interact with data related with user.
+
+paths:
+  /event:
+    get:
+      tags:
+      - Event
+      summary: return the list of all events
+      operationId: getAllEvent
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/EventDescription"
+  
+  /event/by-month:
+    get:
+      tags:
+      - Event
+      summary: return the list of all events sorted by month
+      operationId: getAllEventByMonth
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                events:
+                  type: array
+                  items: 
+                    $ref: "#/definitions/EventDescription"
+
+  /event/{event-id}:
+    get:
+      tags:
+      - Event
+      summary : return the event that corresponds to the id
+      operationId : getEventByID
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Event" 
+
+  /event/{event-id}/next :
+    get:
+      tags:
+      - event
+      summary: returns the next event 
+      operationId: getNextEvent
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1   
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Event" 
+
+  /event/{event-id}/previous :
+    get:
+      tags:
+      - event
+      summary: returns the previous event 
+      operationId: getPreviousEvent
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Event" 
+
+
+
+  /event/{event-id}/nextPresents :
+    get:
+      tags:
+      - event
+      summary: returns the next event that presents the service in query
+      operationId: getNextPresentsEvent
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1 
+        - in: query
+          name: service 
+          description: service id of the service we are doing the guided tour in
+          required : true
+          type: integer
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Event" 
+
+  /event/{event-id}/previousPresents:
+    get:
+      tags:
+      - event
+      summary: returns the previous event that presents the service in query
+      operationId: getPreviousPresentsEvent
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+        - in: query
+          name: service 
+          description: service id of the service we are doing the guided tour in
+          required : true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Event" 
+
+  /event/presents:
+    get:
+      tags:
+      - event
+      summary: returns the event that presents a service
+      operationId: getEventPresentsService
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: service-id
+          description: the service that we want presented in the events 
+          required : true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Event" 
+
+
+  /person:
+    get:
+      tags:
+      - Person
+      summary: returns the list of all persons
+      operationId: getAllPersons
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Person"
+
+  /person/{person-id}:
+    get:
+      tags:
+      - Person
+      summary : return the person that corresponds to the id
+      operationId : getPersonByID
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: person-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            $ref: "#/definitions/Person"
+
+  /person/contact:
+    get:
+      tags:
+        - Person
+      summary: Returns the contact person of the specified event
+      operationId: getPersonContact
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: event-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Sucessful operation
+          schema:
+            $ref: "#/definitions/Person"
+
+  /person/involved-in:
+    get:
+      tags:
+        - Person
+      summary: Return the person involved in the service specified
+      operationId: getPersonInvolvedIn
+      produces:
+        - application/json
+      parameters:
+        - in: query
+          name: service-id
+          required: true
+          type: integer
+          format: int64
+          minimum: 1
+      responses:
+        "200":
+          description: Sucessful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Person"
+
+definitions:
+  Event:
+    properties:
+      event-id:
+        type: integer
+        format: int64
+        minimum: 1
+        example: 3
+      name:
+        type: string
+        example: "garbage collection at the Seine banks."
+      pratical-info:
+        type: array
+        items:
+          type: string
+        example:
+          [
+            "A document that summarizes all the information is available here ...",
+            "If you want to propose some ideas you can send an email to ...",
+          ]
+      presentation:
+        type: string
+        example : "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!"
+      photos:
+        type: array
+        items:
+          type: string
+          minLength: 1
+        example: ["garbage2020-10-23", "some-participant","before-after"  ]
+
+      start-date:
+        type: string
+        format: date
+        example: "2020-10-23"
+      end-date:
+        type: string
+        format: date
+        example: "2020-10-23"
+      contact: 
+        type: string
+    required:
+      - event-id
+      - name
+
+  EventDescription:
+    properties:
+      event-id:
+        type: integer
+        format: int64
+        minimum: 1
+        example: 3
+      name:
+        type: string
+        example: "garbage collection at the Seine banks."
+      description:
+        type: string
+      photo-description:
+        type: string
+        minLength: 1
+        example : "garbage-collection-2020-10-23"
+      start-date:
+        type: string
+        format: date
+        example: "2020-10-23"
+      end-date:
+        type: string
+        format: date
+        example: "2020-10-23"
+    required:
+      - event-id
+      - name  
+
+  Person:
+    properties:
+      person-id:
+        type: integer
+        format: int64
+        minimum: 1
+        example: 3
+      first-name:
+        type: string
+        example: "Micheal"
+      last-name:
+        type: string
+        example : "jordan"
+      description:
+        type: string
+        example : "One of our most dedicated member. Joined in 2018 and is now responsible for the event organisation."
+      photo:
+        type: array
+        items:
+          type: string
+          minLength: 1
+        example : ["michael-jordan","micheal-at-his-first-event"]
+    required:
+      - person-id
+      - name
