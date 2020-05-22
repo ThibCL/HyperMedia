@@ -1,5 +1,16 @@
 "use strict"
-let sqlDb
+// let sqlDb
+const sqlDbFactory = require("knex")
+let sqlDb = sqlDbFactory({
+  debug: true,
+  client: "pg",
+  connection: {
+    host: "127.0.0.1",
+    user: "postgres",
+    password: "gameboy",
+    database: "hypermedia",
+  },
+})
 
 exports.serviceDbSetup = function (s) {
   sqlDb = s
@@ -69,21 +80,15 @@ exports.getAllServices = function () {
  **/
 exports.getServiceById = function (serviceId) {
   return new Promise(function (resolve, reject) {
+    var service = sqlDb("service")
+      .where("service.id", serviceId)
+      .join("service_info", "service.id", "=", "service_info.service_id")
+      .join("service_photo", "service.id", "=", "service_photo.service_id")
+      .select("service.id", "name", "presentation", "info", "title")
+
     var examples = {}
-    examples["application/json"] = {
-      presentation:
-        "This service has been created in 1938 and its purpose is to sensibilise company and people of the impact of poluition in the climat but also about saving energy.",
-      "service-id": 3,
-      "photo-description": "energy-service",
-      "pratical-info": [
-        "A document that summarizes all the information is available here ...",
-        "If you want to propose some ideas you can sen an email to ...",
-      ],
-      name: "Energy/Climat",
-      description:
-        "This service handle everything that is related to the energy and the climat.",
-      photo: ["service-building", "the-team", "result"],
-    }
+    examples["application/json"] = service
+
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
     } else {
