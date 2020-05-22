@@ -6,12 +6,8 @@ const sqlDbFactory = require("knex")
 let sqlDb = sqlDbFactory({
   debug: true,
   client: "pg",
-  connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "",
-    database: "hypermedia",
-  },
+  connection: process.env.DATABASE_URL,
+  ssl: true,
 })
 
 function setupDatalayer() {
