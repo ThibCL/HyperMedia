@@ -1,7 +1,8 @@
 ---
 swagger: "2.0"
 info:
-  description: "Api for the website of the asssociation ***Agir pour l'environnement***.\
+  description:
+    "Api for the website of the asssociation ***Agir pour l'environnement***.\
     \ \n  This Api contains the different calls to interact with data about:\n* The\
     \ services supported by the association \n* The persons involved \n* The different\
     \ events organised.\n"
@@ -10,25 +11,25 @@ info:
 host: "localhost:8080"
 basePath: "/v1"
 tags:
-- name: "Service"
-  description: "Interact with data related to services supported by the association"
-- name: "Event"
-  description: "Interact with data related to person involved in the association"
-- name: "Person"
-  description: "Interact with data related to event organised by the association"
-- name: "User"
-  description: "Interact with data related with user."
+  - name: "Service"
+    description: "Interact with data related to services supported by the association"
+  - name: "Event"
+    description: "Interact with data related to person involved in the association"
+  - name: "Person"
+    description: "Interact with data related to event organised by the association"
+  - name: "User"
+    description: "Interact with data related with user."
 schemes:
-- "http"
+  - "http"
 paths:
   /service:
     get:
       tags:
-      - "Service"
+        - "Service"
       summary: "Returns the list of all services"
       operationId: "getAllServices"
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         "200":
@@ -38,21 +39,21 @@ paths:
             items:
               $ref: "#/definitions/ServiceDescription"
       x-swagger-router-controller: "Service"
-  /service/{service-id}:
+  /service/{serviceId}:
     get:
       tags:
-      - "Service"
+        - "Service"
       summary: "Return the service that correspond to the id"
       operationId: "getServiceById"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "service-id"
-        in: "path"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "serviceId"
+          in: "path"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Successful operation"
@@ -62,18 +63,18 @@ paths:
   /service/presented-in:
     get:
       tags:
-      - "Service"
+        - "Service"
       summary: "Return the services description presented in the event specified"
       operationId: "getServicesPresentedIn"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "event-id"
-        in: "query"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "event-id"
+          in: "query"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Successful operation"
@@ -85,11 +86,11 @@ paths:
   /event:
     get:
       tags:
-      - "Event"
+        - "Event"
       summary: "return the list of all events"
       operationId: "getAllEvent"
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         "200":
@@ -102,11 +103,11 @@ paths:
   /event/by-month:
     get:
       tags:
-      - "Event"
+        - "Event"
       summary: "return the list of all events sorted by month"
       operationId: "getAllEventByMonth"
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         "200":
@@ -116,117 +117,117 @@ paths:
             items:
               $ref: "#/definitions/inline_response_200"
       x-swagger-router-controller: "Event"
-  /event/{event-id}:
+  /event/{eventId}:
     get:
       tags:
-      - "Event"
+        - "Event"
       summary: "return the event that corresponds to the id"
       operationId: "getEventByID"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "event-id"
-        in: "path"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "eventId"
+          in: "path"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Successful operation"
           schema:
             $ref: "#/definitions/Event"
       x-swagger-router-controller: "Event"
-  /event/{event-id}/next:
+  /event/{eventId}/next:
     get:
       tags:
-      - "Event"
+        - "Event"
       summary: "returns the next event"
       operationId: "getNextEvent"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "event-id"
-        in: "path"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "eventId"
+          in: "path"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Successful operation"
           schema:
             $ref: "#/definitions/Event"
       x-swagger-router-controller: "Event"
-  /event/{event-id}/previous:
+  /event/{eventId}/previous:
     get:
       tags:
-      - "Event"
+        - "Event"
       summary: "returns the previous event"
       operationId: "getPreviousEvent"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "event-id"
-        in: "path"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "eventId"
+          in: "path"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Successful operation"
           schema:
             $ref: "#/definitions/Event"
       x-swagger-router-controller: "Event"
-  /event/{event-id}/nextPresents:
+  /event/{eventId}/nextPresents:
     get:
       tags:
-      - "Event"
+        - "Event"
       summary: "returns the next event that presents the service in query"
       operationId: "getNextPresentsEvent"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "event-id"
-        in: "path"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
-      - name: "service"
-        in: "query"
-        description: "service id of the service we are doing the guided tour in"
-        required: true
-        type: "integer"
+        - name: "eventId"
+          in: "path"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
+        - name: "service-id"
+          in: "query"
+          description: "service id of the service we are doing the guided tour in"
+          required: true
+          type: "integer"
       responses:
         "200":
           description: "Successful operation"
           schema:
             $ref: "#/definitions/Event"
       x-swagger-router-controller: "Event"
-  /event/{event-id}/previousPresents:
+  /event/{eventId}/previousPresents:
     get:
       tags:
-      - "Event"
+        - "Event"
       summary: "returns the previous event that presents the service in query"
       operationId: "getPreviousPresentsEvent"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "event-id"
-        in: "path"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
-      - name: "service"
-        in: "query"
-        description: "service id of the service we are doing the guided tour in"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "eventId"
+          in: "path"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
+        - name: "service-id"
+          in: "query"
+          description: "service id of the service we are doing the guided tour in"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Successful operation"
@@ -236,19 +237,19 @@ paths:
   /event/presents:
     get:
       tags:
-      - "Event"
+        - "Event"
       summary: "returns the event that presents a service"
       operationId: "getEventPresentsService"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "service-id"
-        in: "query"
-        description: "the service that we want presented in the events"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "service-id"
+          in: "query"
+          description: "the service that we want presented in the events"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Successful operation"
@@ -260,11 +261,11 @@ paths:
   /person:
     get:
       tags:
-      - "Person"
+        - "Person"
       summary: "returns the list of all persons"
       operationId: "getAllPersons"
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         "200":
@@ -274,21 +275,21 @@ paths:
             items:
               $ref: "#/definitions/Person"
       x-swagger-router-controller: "Person"
-  /person/{person-id}:
+  /person/{personId}:
     get:
       tags:
-      - "Person"
+        - "Person"
       summary: "return the person that corresponds to the id"
       operationId: "getPersonByID"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "person-id"
-        in: "path"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "personId"
+          in: "path"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Successful operation"
@@ -298,18 +299,18 @@ paths:
   /person/contact:
     get:
       tags:
-      - "Person"
+        - "Person"
       summary: "Returns the contact person of the specified event"
       operationId: "getPersonContact"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "event-id"
-        in: "query"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "event-id"
+          in: "query"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Sucessful operation"
@@ -319,18 +320,18 @@ paths:
   /person/involved-in:
     get:
       tags:
-      - "Person"
+        - "Person"
       summary: "Return the person involved in the service specified"
       operationId: "getPersonInvolvedIn"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "service-id"
-        in: "query"
-        required: true
-        type: "integer"
-        minimum: 1
-        format: "int64"
+        - name: "service-id"
+          in: "query"
+          required: true
+          type: "integer"
+          minimum: 1
+          format: "int64"
       responses:
         "200":
           description: "Sucessful operation"
@@ -342,24 +343,24 @@ paths:
   /user/login:
     post:
       tags:
-      - "User"
+        - "User"
       summary: "Permit to an user to login"
       operationId: "login"
       consumes:
-      - "application/x-www-form-urlencoded"
+        - "application/x-www-form-urlencoded"
       produces:
-      - "application/json"
+        - "application/json"
       parameters:
-      - name: "username"
-        in: "formData"
-        required: true
-        type: "string"
-        minLength: 1
-      - name: "password"
-        in: "formData"
-        required: true
-        type: "string"
-        minLength: 1
+        - name: "username"
+          in: "formData"
+          required: true
+          type: "string"
+          minLength: 1
+        - name: "password"
+          in: "formData"
+          required: true
+          type: "string"
+          minLength: 1
       responses:
         "200":
           description: "Succesful operation"
@@ -369,11 +370,11 @@ paths:
   /user/me:
     get:
       tags:
-      - "User"
+        - "User"
       summary: "Retrieve data of the user of the current session"
       operationId: "getMe"
       produces:
-      - "application/json"
+        - "application/json"
       parameters: []
       responses:
         "200":
@@ -386,8 +387,8 @@ paths:
 definitions:
   Service:
     required:
-    - "name"
-    - "service-id"
+      - "name"
+      - "service-id"
     properties:
       service-id:
         type: "integer"
@@ -400,7 +401,8 @@ definitions:
         minLength: 1
       description:
         type: "string"
-        example: "This service handle everything that is related to the energy and\
+        example:
+          "This service handle everything that is related to the energy and\
           \ the climat."
         minLength: 1
       photo-description:
@@ -410,46 +412,49 @@ definitions:
       pratical-info:
         type: "array"
         example:
-        - "A document that summarizes all the information is available here ..."
-        - "If you want to propose some ideas you can sen an email to ..."
+          - "A document that summarizes all the information is available here ..."
+          - "If you want to propose some ideas you can sen an email to ..."
         items:
           type: "string"
           minLength: 1
       presentation:
         type: "string"
-        example: "This service has been created in 1938 and its purpose is to sensibilise\
+        example:
+          "This service has been created in 1938 and its purpose is to sensibilise\
           \ company and people of the impact of poluition in the climat but also about\
           \ saving energy."
         minLength: 1
       photo:
         type: "array"
         example:
-        - "service-building"
-        - "the-team"
-        - "result"
+          - "service-building"
+          - "the-team"
+          - "result"
         items:
           type: "string"
           minLength: 1
     example:
-      presentation: "This service has been created in 1938 and its purpose is to sensibilise\
+      presentation:
+        "This service has been created in 1938 and its purpose is to sensibilise\
         \ company and people of the impact of poluition in the climat but also about\
         \ saving energy."
       service-id: 3
       photo-description: "energy-service"
       pratical-info:
-      - "A document that summarizes all the information is available here ..."
-      - "If you want to propose some ideas you can sen an email to ..."
+        - "A document that summarizes all the information is available here ..."
+        - "If you want to propose some ideas you can sen an email to ..."
       name: "Energy/Climat"
-      description: "This service handle everything that is related to the energy and\
+      description:
+        "This service handle everything that is related to the energy and\
         \ the climat."
       photo:
-      - "service-building"
-      - "the-team"
-      - "result"
+        - "service-building"
+        - "the-team"
+        - "result"
   ServiceDescription:
     required:
-    - "name"
-    - "service-id"
+      - "name"
+      - "service-id"
     properties:
       service-id:
         type: "integer"
@@ -462,7 +467,8 @@ definitions:
         minLength: 1
       description:
         type: "string"
-        example: "This service handle everything that is related to the energy and\
+        example:
+          "This service handle everything that is related to the energy and\
           \ the climat."
         minLength: 1
       photo-description:
@@ -473,12 +479,13 @@ definitions:
       service-id: 3
       photo-description: "energy-service"
       name: "Energy/Climat"
-      description: "This service handle everything that is related to the energy and\
+      description:
+        "This service handle everything that is related to the energy and\
         \ the climat."
   Event:
     required:
-    - "event-id"
-    - "name"
+      - "event-id"
+      - "name"
     properties:
       event-id:
         type: "integer"
@@ -491,21 +498,22 @@ definitions:
       pratical-info:
         type: "array"
         example:
-        - "A document that summarizes all the information is available here ..."
-        - "If you want to propose some ideas you can send an email to ..."
+          - "A document that summarizes all the information is available here ..."
+          - "If you want to propose some ideas you can send an email to ..."
         items:
           type: "string"
       presentation:
         type: "string"
-        example: "In this event we go to collect garbage on the Seine Banks for a\
+        example:
+          "In this event we go to collect garbage on the Seine Banks for a\
           \ day to have a nicer city. It is also a good way to meet people form the\
           \ association!"
       photos:
         type: "array"
         example:
-        - "garbage2020-10-23"
-        - "some-participant"
-        - "before-after"
+          - "garbage2020-10-23"
+          - "some-participant"
+          - "before-after"
         items:
           type: "string"
           minLength: 1
@@ -520,25 +528,26 @@ definitions:
       contact:
         type: "string"
     example:
-      presentation: "In this event we go to collect garbage on the Seine Banks for\
+      presentation:
+        "In this event we go to collect garbage on the Seine Banks for\
         \ a day to have a nicer city. It is also a good way to meet people form the\
         \ association!"
       end-date: "2020-10-23"
       pratical-info:
-      - "A document that summarizes all the information is available here ..."
-      - "If you want to propose some ideas you can send an email to ..."
+        - "A document that summarizes all the information is available here ..."
+        - "If you want to propose some ideas you can send an email to ..."
       contact: "contact"
       name: "garbage collection at the Seine banks."
       start-date: "2020-10-23"
       event-id: 3
       photos:
-      - "garbage2020-10-23"
-      - "some-participant"
-      - "before-after"
+        - "garbage2020-10-23"
+        - "some-participant"
+        - "before-after"
   EventDescription:
     required:
-    - "event-id"
-    - "name"
+      - "event-id"
+      - "name"
     properties:
       event-id:
         type: "integer"
@@ -571,9 +580,9 @@ definitions:
       event-id: 3
   Person:
     required:
-    - "first-name"
-    - "last-name"
-    - "person-id"
+      - "first-name"
+      - "last-name"
+      - "person-id"
     properties:
       person-id:
         type: "integer"
@@ -588,29 +597,31 @@ definitions:
         example: "jordan"
       description:
         type: "string"
-        example: "One of our most dedicated member. Joined in 2018 and is now responsible\
+        example:
+          "One of our most dedicated member. Joined in 2018 and is now responsible\
           \ for the event organisation."
       photo:
         type: "array"
         example:
-        - "michael-jordan"
-        - "micheal-at-his-first-event"
+          - "michael-jordan"
+          - "micheal-at-his-first-event"
         items:
           type: "string"
           minLength: 1
     example:
-      description: "One of our most dedicated member. Joined in 2018 and is now responsible\
+      description:
+        "One of our most dedicated member. Joined in 2018 and is now responsible\
         \ for the event organisation."
       photo:
-      - "michael-jordan"
-      - "micheal-at-his-first-event"
+        - "michael-jordan"
+        - "micheal-at-his-first-event"
       person-id: 3
       first-name: "Micheal"
       last-name: "jordan"
   User:
     required:
-    - "user-id"
-    - "username"
+      - "user-id"
+      - "username"
     properties:
       user-id:
         type: "integer"
@@ -637,15 +648,15 @@ definitions:
     example:
       date: "2000-01-23"
       events:
-      - end-date: "2020-10-23"
-        photo-description: "garbage-collection-2020-10-23"
-        name: "garbage collection at the Seine banks."
-        description: "description"
-        start-date: "2020-10-23"
-        event-id: 3
-      - end-date: "2020-10-23"
-        photo-description: "garbage-collection-2020-10-23"
-        name: "garbage collection at the Seine banks."
-        description: "description"
-        start-date: "2020-10-23"
-        event-id: 3
+        - end-date: "2020-10-23"
+          photo-description: "garbage-collection-2020-10-23"
+          name: "garbage collection at the Seine banks."
+          description: "description"
+          start-date: "2020-10-23"
+          event-id: 3
+        - end-date: "2020-10-23"
+          photo-description: "garbage-collection-2020-10-23"
+          name: "garbage collection at the Seine banks."
+          description: "description"
+          start-date: "2020-10-23"
+          event-id: 3
