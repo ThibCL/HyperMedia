@@ -69,7 +69,7 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "event-id"
+        - name: "eventId"
           in: "query"
           required: true
           type: "integer"
@@ -195,7 +195,7 @@ paths:
           type: "integer"
           minimum: 1
           format: "int64"
-        - name: "service-id"
+        - name: "service"
           in: "query"
           description: "service id of the service we are doing the guided tour in"
           required: true
@@ -221,7 +221,7 @@ paths:
           type: "integer"
           minimum: 1
           format: "int64"
-        - name: "service-id"
+        - name: "service"
           in: "query"
           description: "service id of the service we are doing the guided tour in"
           required: true
@@ -243,7 +243,7 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "service-id"
+        - name: "serviceId"
           in: "query"
           description: "the service that we want presented in the events"
           required: true
@@ -305,7 +305,7 @@ paths:
       produces:
         - "application/json"
       parameters:
-        - name: "service-id"
+        - name: "serviceId"
           in: "query"
           required: true
           type: "integer"
@@ -375,9 +375,9 @@ definitions:
   Service:
     required:
       - "name"
-      - "service-id"
+      - "serviceId"
     properties:
-      service-id:
+      serviceId:
         type: "integer"
         format: "int64"
         example: 3
@@ -425,7 +425,7 @@ definitions:
         "This service has been created in 1938 and its purpose is to sensibilise\
         \ company and people of the impact of poluition in the climat but also about\
         \ saving energy."
-      service-id: 3
+      serviceId: 3
       photo-description: "energy-service"
       pratical-info:
         - "A document that summarizes all the information is available here ..."
@@ -441,9 +441,9 @@ definitions:
   ServiceDescription:
     required:
       - "name"
-      - "service-id"
+      - "serviceId"
     properties:
-      service-id:
+      serviceId:
         type: "integer"
         format: "int64"
         example: 3
@@ -463,7 +463,7 @@ definitions:
         example: "energy-service"
         minLength: 1
     example:
-      service-id: 3
+      serviceId: 3
       photo-description: "energy-service"
       name: "Energy/Climat"
       description:
@@ -471,10 +471,10 @@ definitions:
         \ the climat."
   Event:
     required:
-      - "event-id"
+      - "eventId"
       - "name"
     properties:
-      event-id:
+      eventId:
         type: "integer"
         format: "int64"
         example: 3
@@ -526,17 +526,17 @@ definitions:
       contact: "contact"
       name: "garbage collection at the Seine banks."
       start-date: "2020-10-23"
-      event-id: 3
+      eventId: 3
       photos:
         - "garbage2020-10-23"
         - "some-participant"
         - "before-after"
   EventDescription:
     required:
-      - "event-id"
+      - "eventId"
       - "name"
     properties:
-      event-id:
+      eventId:
         type: "integer"
         format: "int64"
         example: 3
@@ -564,14 +564,14 @@ definitions:
       name: "garbage collection at the Seine banks."
       description: "description"
       start-date: "2020-10-23"
-      event-id: 3
+      eventId: 3
   Person:
     required:
       - "first-name"
       - "last-name"
-      - "person-id"
+      - "personId"
     properties:
-      person-id:
+      personId:
         type: "integer"
         format: "int64"
         example: 3
@@ -602,7 +602,7 @@ definitions:
       photo:
         - "michael-jordan"
         - "micheal-at-his-first-event"
-      person-id: 3
+      personId: 3
       first-name: "Micheal"
       last-name: "jordan"
   User:
@@ -640,10 +640,10 @@ definitions:
           name: "garbage collection at the Seine banks."
           description: "description"
           start-date: "2020-10-23"
-          event-id: 3
+          eventId: 3
         - end-date: "2020-10-23"
           photo-description: "garbage-collection-2020-10-23"
           name: "garbage collection at the Seine banks."
           description: "description"
           start-date: "2020-10-23"
-          event-id: 3
+          eventId: 3

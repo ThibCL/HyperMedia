@@ -56,6 +56,7 @@ exports.eventDbSetup = function (s) {
  * returns List
  **/
 exports.getAllEvent = function () {
+<<<<<<< HEAD
   return new Promise(async function (resolve, reject) {
     try {
       var event = await sqlDb("event")
@@ -64,6 +65,32 @@ exports.getAllEvent = function () {
       resolve(event)
     } catch (e) {
       reject(e)
+=======
+  return new Promise(function (resolve, reject) {
+    var examples = {}
+    examples["application/json"] = [
+      {
+        "end-date": "2020-10-23",
+        "photo-description": "garbage-collection-2020-10-23",
+        name: "garbage collection at the Seine banks.",
+        description: "description",
+        "start-date": "2020-10-23",
+        "event-id": 3,
+      },
+      {
+        "end-date": "2020-10-23",
+        "photo-description": "garbage-collection-2020-10-23",
+        name: "garbage collection at the Seine banks.",
+        description: "description",
+        "start-date": "2020-10-23",
+        "event-id": 2,
+      },
+    ]
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]])
+    } else {
+      resolve()
+>>>>>>> creation des fichiers pour le front
     }
   })
 }
@@ -74,6 +101,7 @@ exports.getAllEvent = function () {
  * returns List
  **/
 exports.getAllEventByMonth = function () {
+<<<<<<< HEAD
   return new Promise(async function (resolve, reject) {
     try {
       var events = await sqlDb("event")
@@ -93,6 +121,58 @@ exports.getAllEventByMonth = function () {
       resolve(resp)
     } catch (e) {
       reject(e)
+=======
+  return new Promise(function (resolve, reject) {
+    var examples = {}
+    examples["application/json"] = [
+      {
+        date: "2000-01-23",
+        events: [
+          {
+            "end-date": "2020-10-23",
+            "photo-description": "garbage-collection-2020-10-23",
+            name: "garbage collection at the Seine banks.",
+            description: "description",
+            "start-date": "2020-10-23",
+            "event-id": 3,
+          },
+          {
+            "end-date": "2020-10-23",
+            "photo-description": "garbage-collection-2020-10-23",
+            name: "garbage collection at the Seine banks.",
+            description: "description",
+            "start-date": "2020-10-23",
+            "event-id": 2,
+          },
+        ],
+      },
+      {
+        date: "2000-01-24",
+        events: [
+          {
+            "end-date": "2020-10-23",
+            "photo-description": "garbage-collection-2020-10-23",
+            name: "garbage collection at the Seine banks.",
+            description: "description",
+            "start-date": "2020-10-23",
+            "event-id": 3,
+          },
+          {
+            "end-date": "2020-10-23",
+            "photo-description": "garbage-collection-2020-10-23",
+            name: "garbage collection at the Seine banks.",
+            description: "description",
+            "start-date": "2020-10-23",
+            "event-id": 2,
+          },
+        ],
+      },
+    ]
+    if (Object.keys(examples).length > 0) {
+      resolve(examples[Object.keys(examples)[0]])
+    } else {
+      resolve()
+>>>>>>> creation des fichiers pour le front
     }
   })
 }
