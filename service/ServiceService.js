@@ -1,16 +1,5 @@
 "use strict"
-// let sqlDb
-const sqlDbFactory = require("knex")
-let sqlDb = sqlDbFactory({
-  debug: true,
-  client: "pg",
-  connection: {
-    host: "127.0.0.1",
-    user: "postgres",
-    password: "gameboy",
-    database: "hypermedia",
-  },
-})
+let sqlDb
 
 exports.serviceDbSetup = function (s) {
   sqlDb = s
