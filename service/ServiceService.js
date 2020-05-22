@@ -80,38 +80,42 @@ exports.getAllServices = function () {
  **/
 exports.getServiceById = function (serviceId) {
   return new Promise(async function (resolve, reject) {
-    var service = await sqlDb("service")
-      .where("service.id", serviceId)
-      .join("service_info", "service.id", "=", "service_info.service_id")
-      .join("service_photo", "service.id", "=", "service_photo.service_id")
-      .select("service.id", "name", "presentation", "info", "title")
+    try {
+      var service = await sqlDb("service")
+        .where("service.id", serviceId)
+        .join("service_info", "service.id", "=", "service_info.service_id")
+        .join("service_photo", "service.id", "=", "service_photo.service_id")
+        .select("service.id", "nme", "presentation", "info", "title")
 
-    console.log(service)
-    var photos = []
-    var infos = []
-    service.forEach(function (element) {
-      if (photos.indexOf(element.title) == -1) {
-        photos.push(element.title)
+      var photos = []
+      var infos = []
+      service.forEach(function (element) {
+        if (photos.indexOf(element.title) == -1) {
+          photos.push(element.title)
+        }
+
+        if (infos.indexOf(element.info) == -1) {
+          infos.push(element.info)
+        }
+      })
+
+      var examples = {}
+      examples["application/json"] = {
+        id: service[0].id,
+        name: service[0].nane,
+        presentation: service[0].presentation,
+        "practical-info": infos,
+        photo: photos,
       }
 
-      if (infos.indexOf(element.info) == -1) {
-        infos.push(element.info)
+      if (Object.keys(examples).length > 0) {
+        resolve(examples[Object.keys(examples)[0]])
+      } else {
+        resolve()
       }
-    })
-
-    var examples = {}
-    examples["application/json"] = {
-      id: service[0].id,
-      name: service[0].nane,
-      presentation: service[0].presentation,
-      "practical-info": infos,
-      photo: photos,
-    }
-
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+    } catch (e) {
+      console.log("catch")
+      reject(e)
     }
   })
 }

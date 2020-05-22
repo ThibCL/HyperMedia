@@ -22,11 +22,15 @@ module.exports.getServiceById = function getServiceById(req, res, next) {
     })
     .catch(function (response) {
       console.error(response)
+<<<<<<< HEAD
       if (response.error && response.statusCode) {
         utils.writeJson(res, response.error, response.statusCode)
       } else {
         utils.writeJson(res, { error: "Please retry later" }, 500)
       }
+=======
+      utils.writeJson(res, { error: "Please retry later" }, 500)
+>>>>>>> handle errors
     })
 }
 
