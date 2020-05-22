@@ -85,7 +85,14 @@ exports.getServiceById = function (serviceId) {
         .where("service.id", serviceId)
         .join("service_info", "service.id", "=", "service_info.service_id")
         .join("service_photo", "service.id", "=", "service_photo.service_id")
-        .select("service.id", "nme", "presentation", "info", "title")
+        .select("service.id", "name", "presentation", "info", "title")
+
+      if (service.length == 0) {
+        reject({
+          statusCode: 400,
+          error: "The id doesn't correspond to a service",
+        })
+      }
 
       var photos = []
       var infos = []
