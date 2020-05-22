@@ -98,7 +98,7 @@ exports.getServiceById = function (serviceId) {
       var examples = {}
       examples["application/json"] = {
         id: service[0].id,
-        name: service[0].nane,
+        name: service[0].name,
         presentation: service[0].presentation,
         "practical-info": infos,
         photo: photos,
