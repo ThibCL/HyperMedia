@@ -72,7 +72,7 @@ exports.getAllEvent = function () {
         name: "garbage collection at the Seine banks.",
         description: "description",
         "start-date": "2020-10-23",
-        "event-id": 3,
+        "event-id": 2,
       },
     ]
     if (Object.keys(examples).length > 0) {
@@ -109,12 +109,12 @@ exports.getAllEventByMonth = function () {
             name: "garbage collection at the Seine banks.",
             description: "description",
             "start-date": "2020-10-23",
-            "event-id": 3,
+            "event-id": 2,
           },
         ],
       },
       {
-        date: "2000-01-23",
+        date: "2000-01-24",
         events: [
           {
             "end-date": "2020-10-23",
@@ -130,7 +130,7 @@ exports.getAllEventByMonth = function () {
             name: "garbage collection at the Seine banks.",
             description: "description",
             "start-date": "2020-10-23",
-            "event-id": 3,
+            "event-id": 2,
           },
         ],
       },
@@ -152,20 +152,36 @@ exports.getAllEventByMonth = function () {
 exports.getEventByID = function (eventId) {
   return new Promise(function (resolve, reject) {
     var examples = {}
-    examples["application/json"] = {
-      presentation:
-        "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-      "end-date": "2020-10-23",
-      "pratical-info": [
-        "A document that summarizes all the information is available here ...",
-        "If you want to propose some ideas you can send an email to ...",
-      ],
-      contact: "contact",
-      name: "garbage collection at the Seine banks.",
-      "start-date": "2020-10-23",
-      "event-id": 3,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
-    }
+    examples["application/json"] = [
+      {
+        presentation:
+          "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
+        "end-date": "2020-10-23",
+        "pratical-info": [
+          "A document that summarizes all the information is available here ...",
+          "If you want to propose some ideas you can send an email to ...",
+        ],
+        contact: "3",
+        name: "garbage collection at the Seine banks.",
+        "start-date": "2020-10-23",
+        "event-id": 3,
+        photos: ["garbage2020-10-23", "some-participant", "before-after"],
+      },
+      {
+        presentation:
+          "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
+        "end-date": "2020-10-23",
+        "pratical-info": [
+          "A document that summarizes all the information is available here ...",
+          "If you want to propose some ideas you can send an email to ...",
+        ],
+        contact: "3",
+        name: "garbage collection at the garonne banks.",
+        "start-date": "2020-10-23",
+        "event-id": 1,
+        photos: ["garbage2020-10-23", "some-participant", "before-after"],
+      },
+    ]
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
     } else {
@@ -239,9 +255,9 @@ exports.getNextEvent = function (eventId) {
         "If you want to propose some ideas you can send an email to ...",
       ],
       contact: "contact",
-      name: "garbage collection at the Seine banks.",
+      name: "garbage collection at the garonne banks.",
       "start-date": "2020-10-23",
-      "event-id": 3,
+      "event-id": 4,
       photos: ["garbage2020-10-23", "some-participant", "before-after"],
     }
     if (Object.keys(examples).length > 0) {
@@ -271,9 +287,9 @@ exports.getNextPresentsEvent = function (eventId, service) {
         "If you want to propose some ideas you can send an email to ...",
       ],
       contact: "contact",
-      name: "garbage collection at the Seine banks.",
+      name: "garbage collection at the garonne banks.",
       "start-date": "2020-10-23",
-      "event-id": 3,
+      "event-id": 4,
       photos: ["garbage2020-10-23", "some-participant", "before-after"],
     }
     if (Object.keys(examples).length > 0) {
@@ -302,9 +318,9 @@ exports.getPreviousEvent = function (eventId) {
         "If you want to propose some ideas you can send an email to ...",
       ],
       contact: "contact",
-      name: "garbage collection at the Seine banks.",
+      name: "garbage collection at the loire banks.",
       "start-date": "2020-10-23",
-      "event-id": 3,
+      "event-id": 2,
       photos: ["garbage2020-10-23", "some-participant", "before-after"],
     }
     if (Object.keys(examples).length > 0) {
@@ -334,9 +350,9 @@ exports.getPreviousPresentsEvent = function (eventId, service) {
         "If you want to propose some ideas you can send an email to ...",
       ],
       contact: "contact",
-      name: "garbage collection at the Seine banks.",
+      name: "garbage collection at the loire banks.",
       "start-date": "2020-10-23",
-      "event-id": 3,
+      "event-id": 2,
       photos: ["garbage2020-10-23", "some-participant", "before-after"],
     }
     if (Object.keys(examples).length > 0) {
