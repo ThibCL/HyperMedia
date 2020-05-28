@@ -152,36 +152,20 @@ exports.getAllEventByMonth = function () {
 exports.getEventByID = function (eventId) {
   return new Promise(function (resolve, reject) {
     var examples = {}
-    examples["application/json"] = [
-      {
-        presentation:
-          "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-        "end-date": "2020-10-23",
-        "pratical-info": [
-          "A document that summarizes all the information is available here ...",
-          "If you want to propose some ideas you can send an email to ...",
-        ],
-        contact: "3",
-        name: "garbage collection at the Seine banks.",
-        "start-date": "2020-10-23",
-        "event-id": 3,
-        photos: ["garbage2020-10-23", "some-participant", "before-after"],
-      },
-      {
-        presentation:
-          "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-        "end-date": "2020-10-23",
-        "pratical-info": [
-          "A document that summarizes all the information is available here ...",
-          "If you want to propose some ideas you can send an email to ...",
-        ],
-        contact: "3",
-        name: "garbage collection at the garonne banks.",
-        "start-date": "2020-10-23",
-        "event-id": 1,
-        photos: ["garbage2020-10-23", "some-participant", "before-after"],
-      },
-    ]
+    examples["application/json"] = {
+      presentation:
+        "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
+      "end-date": "2020-10-23",
+      "pratical-info": [
+        "A document that summarizes all the information is available here ...",
+        "If you want to propose some ideas you can send an email to ...",
+      ],
+      contact: "3",
+      name: "garbage collection at the Seine banks.",
+      "start-date": "2020-10-23",
+      "event-id": 3,
+      photos: ["image1.jpeg", "image2.jpeg"],
+    }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
     } else {
@@ -212,7 +196,7 @@ exports.getEventPresentsService = function (serviceId) {
         name: "garbage collection at the Seine banks.",
         "start-date": "2020-10-23",
         "event-id": 3,
-        photos: ["garbage2020-10-23", "some-participant", "before-after"],
+        photos: ["image1.jpeg", "image2.jpeg"],
       },
       {
         presentation:
@@ -226,7 +210,7 @@ exports.getEventPresentsService = function (serviceId) {
         name: "garbage collection at the Seine banks.",
         "start-date": "2020-10-23",
         "event-id": 3,
-        photos: ["garbage2020-10-23", "some-participant", "before-after"],
+        photos: ["image1.jpeg", "image2.jpeg"],
       },
     ]
     if (Object.keys(examples).length > 0) {
@@ -257,8 +241,8 @@ exports.getNextEvent = function (eventId) {
       contact: "contact",
       name: "garbage collection at the garonne banks.",
       "start-date": "2020-10-23",
-      "event-id": 4,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
+      "event-id": 1,
+      photos: ["image1.jpeg", "image2.jpeg"],
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
@@ -290,7 +274,7 @@ exports.getNextPresentsEvent = function (eventId, service) {
       name: "garbage collection at the garonne banks.",
       "start-date": "2020-10-23",
       "event-id": 4,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
+      photos: ["image1.jpeg", "image2.jpeg"],
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
@@ -321,7 +305,7 @@ exports.getPreviousEvent = function (eventId) {
       name: "garbage collection at the loire banks.",
       "start-date": "2020-10-23",
       "event-id": 2,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
+      photos: ["image1.jpeg", "image2.jpeg"],
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
@@ -353,7 +337,7 @@ exports.getPreviousPresentsEvent = function (eventId, service) {
       name: "garbage collection at the loire banks.",
       "start-date": "2020-10-23",
       "event-id": 2,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
+      photos: ["image1.jpeg", "image2.jpeg"],
     }
     if (Object.keys(examples).length > 0) {
       resolve(examples[Object.keys(examples)[0]])
