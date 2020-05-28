@@ -68,26 +68,44 @@ exports.getAllServices = function () {
  * returns Service
  **/
 exports.getServiceById = function (serviceId) {
-  return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = {
-      presentation:
-        "This service has been created in 1938 and its purpose is to sensibilise company and people of the impact of poluition in the climat but also about saving energy.",
-      "service-id": 3,
-      "photo-description": "energy-service",
-      "pratical-info": [
-        "A document that summarizes all the information is available here ...",
-        "If you want to propose some ideas you can sen an email to ...",
-      ],
-      name: "Energy/Climat",
-      description:
-        "This service handle everything that is related to the energy and the climat.",
-      photo: ["service-building", "the-team", "result"],
-    }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+  return new Promise(async function (resolve, reject) {
+    try {
+      var service = await sqlDb("service")
+        .where("service.id", serviceId)
+        .join("service_info", "service.id", "=", "service_info.service_id")
+        .join("service_photo", "service.id", "=", "service_photo.service_id")
+        .select("service.id", "name", "presentation", "info", "title")
+
+      if (service.length == 0) {
+        reject({
+          statusCode: 400,
+          error: "The id doesn't correspond to a service",
+        })
+      }
+
+      var photos = []
+      var infos = []
+      service.forEach(function (element) {
+        if (photos.indexOf(element.title) == -1) {
+          photos.push(element.title)
+        }
+
+        if (infos.indexOf(element.info) == -1) {
+          infos.push(element.info)
+        }
+      })
+
+      var resp = {
+        id: service[0].id,
+        name: service[0].name,
+        presentation: service[0].presentation,
+        "practical-info": infos,
+        photo: photos,
+      }
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
