@@ -95,8 +95,7 @@ exports.getServiceById = function (serviceId) {
         }
       })
 
-      var examples = {}
-      examples["application/json"] = {
+      var resp = {
         id: service[0].id,
         name: service[0].name,
         presentation: service[0].presentation,
@@ -104,13 +103,8 @@ exports.getServiceById = function (serviceId) {
         photo: photos,
       }
 
-      if (Object.keys(examples).length > 0) {
-        resolve(examples[Object.keys(examples)[0]])
-      } else {
-        resolve()
-      }
+      resolve(resp)
     } catch (e) {
-      console.log("catch")
       reject(e)
     }
   })
