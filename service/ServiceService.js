@@ -108,27 +108,15 @@ exports.getServiceById = function (serviceId) {
  **/
 exports.getServicesPresentedIn = function (eventId) {
   return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = [
-      {
-        "service-id": 3,
-        "photo-description": "energy-service",
-        name: "Energy/Climat",
-        description:
-          "This service handle everything that is related to the energy and the climat.",
-      },
-      {
-        "service-id": 3,
-        "photo-description": "energy-service",
-        name: "Energy/Climat",
-        description:
-          "This service handle everything that is related to the energy and the climat.",
-      },
-    ]
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+    try {
+      var services = sqlDb("presents")
+        .where("event_id", eventId)
+        .join("service", "id", "=", "service_id")
+        .select("id", "name")
+
+      resolve(services)
+    } catch (e) {
+      reject(e)
     }
   })
 }
