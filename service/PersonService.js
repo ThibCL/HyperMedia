@@ -50,29 +50,13 @@ exports.personDbSetup = function (s) {
  **/
 exports.getAllPersons = function () {
   return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = [
-      {
-        description:
-          "One of our most dedicated member. Joined in 2018 and is now responsible for the event organisation.",
-        photo: ["michael-jordan", "micheal-at-his-first-event"],
-        "person-id": 3,
-        "first-name": "Micheal",
-        "last-name": "jordan",
-      },
-      {
-        description:
-          "One of our most dedicated member. Joined in 2018 and is now responsible for the event organisation.",
-        photo: ["michael-jordan", "micheal-at-his-first-event"],
-        "person-id": 3,
-        "first-name": "Micheal",
-        "last-name": "jordan",
-      },
-    ]
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+    try {
+      var persons = sqlDb("person")
+        .orderBy("last_name", "asc")
+        .select("id", "last_name", "first_name")
+      resolve(persons)
+    } catch (e) {
+      reject(e)
     }
   })
 }
