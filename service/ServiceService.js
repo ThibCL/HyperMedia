@@ -10,7 +10,9 @@ exports.serviceDbSetup = function (s) {
       return sqlDb.schema
         .createTable("service", (table) => {
           table.increments("id").primary().notNullable()
-          table.text("name").notNullable()
+          table.string("name").notNullable()
+          table.text("description").notNullable()
+          table.string("photo_description").notNullable()
           table.text("presentation")
         })
         .createTable("service_info", (table) => {
@@ -43,28 +45,18 @@ exports.serviceDbSetup = function (s) {
  * returns List
  **/
 exports.getAllServices = function () {
-  return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = [
-      {
-        "service-id": 3,
-        "photo-description": "energy-service",
-        name: "Energy/Climat",
-        description:
-          "This service handle everything that is related to the energy and the climat.",
-      },
-      {
-        "service-id": 3,
-        "photo-description": "energy-service",
-        name: "Energy/Climat",
-        description:
-          "This service handle everything that is related to the energy and the climat.",
-      },
-    ]
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+  return new Promise(async function (resolve, reject) {
+    try {
+      var services = await sqlDb("service").select(
+        "id",
+        "name",
+        "description",
+        "photo_description"
+      )
+
+      resolve(services)
+    } catch (e) {
+      reject(e)
     }
   })
 }

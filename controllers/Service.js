@@ -9,7 +9,8 @@ module.exports.getAllServices = function getAllServices(req, res, next) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      utils.writeJson(res, { error: "Please retry later" }, 500)
     })
 }
 
