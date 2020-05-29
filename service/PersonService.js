@@ -49,9 +49,9 @@ exports.personDbSetup = function (s) {
  * returns List
  **/
 exports.getAllPersons = function () {
-  return new Promise(function (resolve, reject) {
+  return new Promise(async function (resolve, reject) {
     try {
-      var persons = sqlDb("person")
+      var persons = await sqlDb("person")
         .orderBy("last_name", "asc")
         .select("id", "last_name", "first_name")
       resolve(persons)
