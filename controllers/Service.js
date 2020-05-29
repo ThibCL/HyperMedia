@@ -10,7 +10,11 @@ module.exports.getAllServices = function getAllServices(req, res, next) {
     })
     .catch(function (response) {
       console.error(response)
-      utils.writeJson(res, { error: "Please retry later" }, 500)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -41,6 +45,11 @@ module.exports.getServicesPresentedIn = function getServicesPresentedIn(
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
