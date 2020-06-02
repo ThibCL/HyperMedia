@@ -10,7 +10,7 @@ async function set_content() {
   $.get("http://localhost:8080/v1/service/" + id, function (response) {
     set_serviceName(response.name)
     set_presentation(response.presentation)
-    set_practicalInfo(response["pratical-info"])
+    set_practicalInfo(response["practical-info"])
     set_photos(response.photo)
   })
 
@@ -35,7 +35,13 @@ function set_practicalInfo(infos) {
 }
 
 function set_photos(photos) {
+  var i = 0
   photos.forEach((item) => {
+    var li = document.createElement("li")
+    li["data-target"] = "#carouselExampleIndicators"
+    li["data-slide-to"] = i++
+    $(".carousel-indicators").append(li)
+
     var div = document.createElement("div")
     div.className = "carousel-item"
 
