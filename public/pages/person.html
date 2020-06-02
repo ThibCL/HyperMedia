@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service</title>
+    <title>Person</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -44,7 +44,7 @@
             <nav aria-label="breadcrumb">
                 <ol id="path" class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
-                    <li class="breadcrumb-item"><a href="/pages/allServices.html">Service</a></li>
+                    <li class="breadcrumb-item"><a href="/pages/allPerson.html">Persons</a></li>
                     <li class="breadcrumb-item active" aria-current="page">
                     </li>
                 </ol>
@@ -68,48 +68,20 @@
                 <div class="row m-2">
                     <ul class="nav nav-pills flex-column">
                         <li class="text-secondary">
-                            Service:
+                            Person:
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#presentation">Presentation</a>
+                            <a class="nav-link" href="#carouselExampleIndicators">Images</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#practicalInfo">Practical info</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#photos">Photos</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="row m-1">
-                    <ul class="nav nav-pills flex-column">
-                        <li class="text-secondary">
-                            Info related:
-                        </li>
-                        <li class="nav-item">
-                            <a id="involves" class="nav-link">Involves</a>
-                        </li>
-                        <li class="nav-item">
-                            <a id="events-related" class="nav-link">Events related</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="row m-1">
-                    <ul id="services" class="nav nav-pills flex-column">
-                        <li class="text-secondary">
-                            Other services:
+                            <a class="nav-link" href="#description">Description</a>
                         </li>
                     </ul>
                 </div>
             </nav>
+
             <div class="col-9">
-                <h1 id="service-name"></h1>
-                <h2 id="presentation"> Presentation</h2>
-
-
-                <h2 id="practicalInfo">Practical info</h2>
-
-                <h2 id="photos">Photos</h2>
+                <h1 id="person-name"></h1>
                 <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                     <ol class="carousel-indicators">
                     </ol>
@@ -124,6 +96,8 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+
+                <h2 id="description"> Description</h2>
             </div>
         </div>
     </div>
@@ -150,6 +124,6 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
-<script src="../assets/js/service.js"></script>
+<script src="../assets/js/person.js"></script>
 
 </html>
