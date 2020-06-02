@@ -68,20 +68,35 @@ exports.getAllPersons = function () {
  * returns Person
  **/
 exports.getPersonByID = function (personId) {
-  return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = {
-      description:
-        "One of our most dedicated member. Joined in 2018 and is now responsible for the event organisation.",
-      photo: ["michael-jordan", "micheal-at-his-first-event"],
-      "person-id": 3,
-      "first-name": "Micheal",
-      "last-name": "jordan",
-    }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+  return new Promise(async function (resolve, reject) {
+    try {
+      var person = await sqlDb("person")
+        .leftJoin("person_photo", "person.id", "=", "person_id")
+        .where("person.id", personId)
+
+      if (person.length == 0) {
+        reject({
+          error: "The id does not correspond to a person",
+          statusCode: 400,
+        })
+      }
+
+      var photos = []
+      person.forEach((element) => {
+        element.title != null && photos.push(element.title)
+      })
+
+      var resp = {
+        "person-id": person[0].id || personId,
+        "first-name": person[0].first_name,
+        "last-name": person[0].last_name,
+        description: person[0].description,
+        photo: photos,
+      }
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
