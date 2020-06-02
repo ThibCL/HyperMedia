@@ -3,23 +3,23 @@ let { personDbSetup } = require("./PersonService")
 let { serviceDbSetup } = require("./ServiceService")
 
 const sqlDbFactory = require("knex")
-// let sqlDb = sqlDbFactory({
-//   debug: true,
-//   client: "pg",
-//   connection: process.env.DATABASE_URL,
-//   ssl: true,
-// })
-
 let sqlDb = sqlDbFactory({
   debug: true,
   client: "pg",
-  connection: {
-    host: "localhost",
-    database: "hypermedia",
-    user: "postgres",
-    password: process.env.PASSWORD,
-  },
+  connection: process.env.DATABASE_URL,
+  ssl: true,
 })
+
+// let sqlDb = sqlDbFactory({
+//   debug: true,
+//   client: "pg",
+//   connection: {
+//     host: "localhost",
+//     database: "hypermedia",
+//     user: "postgres",
+//     password: process.env.PASSWORD,
+//   },
+// })
 // For dev, for final version use the code above
 
 // let sqlDb = sqlDbFactory({

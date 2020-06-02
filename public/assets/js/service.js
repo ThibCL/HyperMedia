@@ -61,7 +61,6 @@ function set_navigation() {
 
   $.get("http://localhost:8080/v1/service", function (response) {
     response.forEach((item) => {
-      console.log(item)
       var li = document.createElement("li")
       li.className = "nav-item"
 
