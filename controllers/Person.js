@@ -34,17 +34,6 @@ module.exports.getPersonByID = function getPersonByID(req, res, next) {
     })
 }
 
-module.exports.getPersonContact = function getPersonContact(req, res, next) {
-  var eventId = req.swagger.params["event-id"].value
-  Person.getPersonContact(eventId)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
-    })
-}
-
 module.exports.getPersonInvolvedIn = function getPersonInvolvedIn(
   req,
   res,
