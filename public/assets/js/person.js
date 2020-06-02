@@ -30,8 +30,8 @@ function set_photos(photos) {
     div.className = "carousel-item"
 
     var img = document.createElement("img")
-    img.className = "d-block w-100 h-25"
-    img.height = img.src = "/assets/image/" + item + ".jpg"
+    img.className = "d-block w-100"
+    img.src = "/assets/image/" + item + ".jpg"
 
     div.appendChild(img)
     $("#carousel").append(div)
