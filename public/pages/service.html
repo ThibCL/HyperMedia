@@ -14,10 +14,42 @@
 <body>
 
     <div id="header">
-        <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
-        <li class="breadcrumb-item"><a href="/pages/allServices.html">Service</a></li>
-        <li class="breadcrumb-item active" aria-current="page">
-        </li>
+        <div id="fix">
+            <nav class=" navbar navbar-expand-lg navbar-dark bg-success">
+                <a class="navbar-brand" href="/index.html">Home</a>
+                <button id="nav-button" class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pages/association.html">Association</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pages/allServices.html">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pages/allPerson.html">Person</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pages/AllEvents.html">Event</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <nav aria-label="breadcrumb">
+                <ol id="path" class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/pages/allServices.html">Service</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">
+                    </li>
+                </ol>
+            </nav>
+        </div>
     </div>
 
 
@@ -39,7 +71,7 @@
                             Service:
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#presentation">Presentation</a>
+                            <a class="nav-link " href="#presentation">Presentation</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#practicalInfo">Practical info</a>
@@ -50,7 +82,7 @@
                     </ul>
                 </div>
                 <div class="row m-1">
-                    <ul class="nav flex-column">
+                    <ul class="nav nav-pills flex-column">
                         <li class="text-secondary">
                             Info related:
                         </li>
@@ -63,7 +95,7 @@
                     </ul>
                 </div>
                 <div class="row m-1">
-                    <ul id="services" class="nav flex-column">
+                    <ul id="services" class="nav nav-pills flex-column">
                         <li class="text-secondary">
                             Other services:
                         </li>
@@ -101,7 +133,13 @@
         </div>
     </div>
 
-    <div id="footer"></div>
+    <div id="footer">
+        <footer id="footer" class="page-footer font-small bg-success pt-4 mt-4">
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a class="text-dark" href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+            </div>
+        </footer>
+    </div>
 
 </body>
 

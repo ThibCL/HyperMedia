@@ -1,21 +1,7 @@
-$(document).ready(async function () {
-  set_header()
-  set_footer()
+$(document).ready(function () {
   set_content()
   set_navigation()
 })
-
-function set_header() {
-  var header = $("#header")
-  var breadcrum = header.html()
-  header.load("header.html #header>*", function () {
-    $("#path").append(breadcrum)
-  })
-}
-
-function set_footer() {
-  $("#footer").load("footer.html #footer")
-}
 
 async function set_content() {
   var searchParams = new URLSearchParams(location.search)
