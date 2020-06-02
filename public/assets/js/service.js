@@ -72,7 +72,7 @@ function set_navigation() {
 
       var a = document.createElement("a")
       a.className = "nav-link"
-      a.href = "/pages/service.html?service-id=" + item["service-id"]
+      a.href = "/pages/service.html?service-id=" + item["id"]
       a.text = item.name
 
       li.appendChild(a)
