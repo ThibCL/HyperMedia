@@ -133,30 +133,50 @@ exports.getPersonContact = function (eventId) {
  * returns List
  **/
 exports.getPersonInvolvedIn = function (serviceId) {
-  return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = [
-      {
-        description:
-          "One of our most dedicated member. Joined in 2018 and is now responsible for the event organisation.",
-        photo: ["michael-jordan", "micheal-at-his-first-event"],
-        "person-id": 3,
-        "first-name": "Micheal",
-        "last-name": "jordan",
-      },
-      {
-        description:
-          "One of our most dedicated member. Joined in 2018 and is now responsible for the event organisation.",
-        photo: ["michael-jordan", "micheal-at-his-first-event"],
-        "person-id": 3,
-        "first-name": "Micheal",
-        "last-name": "jordan",
-      },
-    ]
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+  return new Promise(async function (resolve, reject) {
+    try {
+      var persons = await sqlDb("involves")
+        .where("service_id", serviceId)
+        .join("person", "person_id", "=", "person.id")
+        .leftJoin("person_photo", "person.id", "=", "person_photo.person_id")
+        .select(
+          "person.id",
+          "description",
+          "first_name",
+          "last_name",
+          "role",
+          "title as photo"
+        )
+
+      var pers = {}
+      persons.forEach((item) => {
+        if (pers[item.id]) {
+          pers[item.id].push(item.photo)
+        } else {
+          pers[item.id] = item.photo ? [item.photo] : []
+        }
+      })
+
+      var roles = {}
+      persons.forEach((item) => {
+        if (pers[item.id]) {
+          item.photo = pers[item.id]
+          roles[item.role]
+            ? roles[item.role].push(item)
+            : (roles[item.role] = [item])
+
+          delete pers[item.id]
+        }
+      })
+
+      var resp = []
+      Object.entries(roles).forEach(([key, value]) => {
+        resp.push({ role: key, persons: value })
+      })
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
