@@ -9,7 +9,12 @@ module.exports.getAllPersons = function getAllPersons(req, res, next) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -20,18 +25,12 @@ module.exports.getPersonByID = function getPersonByID(req, res, next) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
-    })
-}
-
-module.exports.getPersonContact = function getPersonContact(req, res, next) {
-  var eventId = req.swagger.params["event-id"].value
-  Person.getPersonContact(eventId)
-    .then(function (response) {
-      utils.writeJson(res, response)
-    })
-    .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -46,6 +45,11 @@ module.exports.getPersonInvolvedIn = function getPersonInvolvedIn(
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }

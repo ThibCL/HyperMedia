@@ -10,6 +10,18 @@ let sqlDb = sqlDbFactory({
   ssl: true,
 })
 
+// let sqlDb = sqlDbFactory({
+//   debug: true,
+//   client: "pg",
+//   connection: {
+//     host: "localhost",
+//     database: "hypermedia",
+//     user: "postgres",
+//     password: process.env.PASSWORD,
+//   },
+// })
+// For dev, for final version use the code above
+
 function setupDatalayer() {
   console.log("Setting up Data Layer")
 

@@ -296,27 +296,6 @@ paths:
           schema:
             $ref: "#/definitions/Person"
       x-swagger-router-controller: "Person"
-  /person/contact:
-    get:
-      tags:
-        - "Person"
-      summary: "Returns the contact person of the specified event"
-      operationId: "getPersonContact"
-      produces:
-        - "application/json"
-      parameters:
-        - name: "event-id"
-          in: "query"
-          required: true
-          type: "integer"
-          minimum: 1
-          format: "int64"
-      responses:
-        "200":
-          description: "Sucessful operation"
-          schema:
-            $ref: "#/definitions/Person"
-      x-swagger-router-controller: "Person"
   /person/involved-in:
     get:
       tags:
@@ -338,7 +317,15 @@ paths:
           schema:
             type: "array"
             items:
-              $ref: "#/definitions/Person"
+              type: "object"
+              properties:
+                role:
+                  type: "string"
+                  minLength: 1
+                persons:
+                  type: "array"
+                  items:
+                    $ref: "#/definitions/Person"
       x-swagger-router-controller: "Person"
   /user/login:
     post:
