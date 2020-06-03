@@ -5,27 +5,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Home</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
 </head>
 
 <body>
-    <h1>Home page</h1>
+
+    <div id="header">
+        <div id="fix">
+            <nav class=" navbar navbar-expand-lg navbar-dark bg-success">
+                <a class="navbar-brand" href="/index.html">Home</a>
+                <button id="nav-button" class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pages/association.html">Association</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pages/allServices.html">Service</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pages/allPerson.html">Person</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/pages/AllEvents.html">Event</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <nav aria-label="breadcrumb">
+                <ol id="path" class="breadcrumb">
+                    <li class="breadcrumb-item active">Home</li>
+                    </li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-9">
+                <h1 class="p-3">Agir pour l'environnement</h1>
+                <img class="col-12" src="/assets/image/bandeau.png">
+                <h2 id="association">The association</h2>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat, porro sint. Commodi rerum
+                    quibusdam tempora vel ad. Voluptate placeat, iste dolore repellendus architecto beatae modi debitis
+                    ipsa, perferendis, molestiae eaque.</p>
+                <h2 id="eventlist">Events</h2>
+                <div id="carouselExampleIndicators" class="carousel slide carousel-multi-item" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                    </ol>
+                    <div id="carousel" class="carousel-inner">
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon text-dark" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex hic repellat saepe quisquam expedita cum
+                    ducimus quod quae veritatis obcaecati beatae dicta at cumque dolor laborum temporibus, ad numquam
+                    quis.</p>
+                <h2>Head of the association</h2>
+                <div class="card-group">
+                    <div class="card p-3">
+                        <img src="/assets/image/face.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Bob Dilan</h5>
+                            <p class="card-text">The Ceo of the association</p>
+                        </div>
+                    </div>
+                    <div class="card p-3">
+                        <img src="/assets/image/face.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Marc Lavoine</h5>
+                            <p class="card-text">The second man of the association</p>
+                        </div>
+                    </div>
+                    <div class="card p-3">
+                        <img src="/assets/image/face.jpg" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Tony paker</h5>
+                            <p class="card-text">The best employee of the year</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="footer">
+        <footer id="footer" class="page-footer font-small bg-success pt-4 mt-4">
+            <div class="footer-copyright text-center py-3">© 2020 Copyright:
+                <a class="text-dark" href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+            </div>
+        </footer>
+    </div>
+
 </body>
 
 
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src=" https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous">
+    </script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
     integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
     crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
     integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
     crossorigin="anonymous"></script>
+<script src="../assets/js/home.js"></script>
 
 </html>

@@ -4,13 +4,13 @@ $(document).ready(function () {
 })
 
 async function set_content() {
-  var searchParams = new URLSearchParams(location.search)
-  var id = searchParams.get("service-id")
+  var searchparams = new urlsearchparams(location.search)
+  var id = searchparams.get("service-id")
 
   $.get("http://localhost:8080/v1/service/" + id, function (response) {
-    set_serviceName(response.name)
+    set_servicename(response.name)
     set_presentation(response.presentation)
-    set_practicalInfo(response["practical-info"])
+    set_practicalinfo(response["practical-info"])
     set_photos(response.photo)
   })
 
@@ -19,19 +19,19 @@ async function set_content() {
 }
 
 function set_presentation(pres) {
-  var p = document.createElement("p")
-  p.innerText = pres
+  var p = document.createelement("p")
+  p.innertext = pres
   $("#presentation").after(p)
 }
 
-function set_practicalInfo(infos) {
-  var ul = document.createElement("ul")
-  infos.forEach((item) => {
-    var li = document.createElement("li")
-    li.innerText = item
-    ul.appendChild(li)
+function set_practicalinfo(infos) {
+  var ul = document.createelement("ul")
+  infos.foreach((item) => {
+    var li = document.createelement("li")
+    li.innertext = item
+    ul.appendchild(li)
   })
-  $("#practicalInfo").after(ul)
+  $("#practicalinfo").after(ul)
 }
 
 function set_photos(photos) {
