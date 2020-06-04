@@ -12,7 +12,8 @@ exports.eventDbSetup = function (s) {
           table.increments("id").primary().notNullable()
           table.text("name").notNullable()
           table.text("presentation")
-          table.text("description")
+          table.text("description").notNullable()
+          table.string("photo_description").notNullable()
           table.date("start_date").notNullable()
           table.date("end_date").notNullable()
           table.integer("contact").references("id").inTable("person")
@@ -58,10 +59,18 @@ exports.eventDbSetup = function (s) {
 exports.getAllEvent = function () {
   return new Promise(async function (resolve, reject) {
     try {
-      var event = await sqlDb("event")
+      var events = await sqlDb("event")
+        .select(
+          "event.id",
+          "description",
+          "photo_description",
+          "name",
+          "start_date",
+          "end_date"
+        )
         .orderBy("start_date", "desc")
-        .select("id", "description", "name", "start_date", "end_date")
-      resolve(event)
+
+      resolve(events)
     } catch (e) {
       reject(e)
     }

@@ -1,160 +1,141 @@
 <!DOCTYPE html>
 
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>event</title>
 
-    <link
-      rel="stylesheet"
-      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-      crossorigin="anonymous"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>event</title>
 
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <a class="navbar-brand" href="../index.html">Home</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+</head>
 
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="/pages/association.html">Association</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/pages/allServices.html">Service</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/pages/allPerson.html">Person</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/pages/AllEvents.html">Event</a>
-          </li>
-        </ul>
-      </div>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
+    <a class="navbar-brand" href="../index.html">Home</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/pages/association.html">Association</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/pages/allServices.html">Service</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/pages/allPerson.html">Person</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/pages/AllEvents.html">Event</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <div id="event">
+    <nav aria-label="breadcrumb">
+      <ul class="breadcrumb">
+        <li id="home" class="breadcrumb-item"><a href="../index.html">Home</a></li>
+        <li class="breadcrumb-item"><a id="eventlink" href="/pages/AllEvents.html">Event</a></li>
+        <li id="eventName" class="breadcrumb-item active" aria-current="page"></li>
+      </ul>
     </nav>
-    <div id="event">
-      <nav aria-label="breadcrumb">
-        <ul class="breadcrumb">
-          <li id = "home" class="breadcrumb-item"><a href="../index.html">Home</a></li>
-          <li class="breadcrumb-item"><a href="#">Event</a></li>
-          <li
-            id="eventName"
-            class="breadcrumb-item active"
-            aria-current="page"
-          ></li>
-        </ul>
-      </nav>
 
-      <div class="container-fluid">
-        <div class="row d-md-none p-2">
-          <button class="btn btn-success collapsed" type="button" data-toggle="collapse" data-target="#bar" aria-controls="bar"
-            aria-expanded="false" aria-label="Toggle navigation">
-            Menu <img src="../assets/image/keyboard_arrow_down-black-18dp.svg">
-          </button>
-        </div>
-        <div class="row">
-          <nav id="bar" class="col-md-3 col-lg-2 d-md-block position-relative bg-light sidebar collapse border border-grey">
-            <div class="row m-2">
-              <ul class="nav nav-pills flex-column">
-                <li class="text-secondary">
-                  Service:
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#presentation">Presentation</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#practicalInfo">Practical info</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="#photos">Photos</a>
-                </li>
-              </ul>
-            </div>
-            <div class="row m-1">
-              <ul class="nav nav-pills flex-column">
-                <li class="text-secondary">
-                  Info related:
-                </li>
-                <li class="nav-item">
-                  <a id="contact" class="nav-link"></a>
-                </li>
-                
-                <ul id = service-presented class="nav nav-pills flex-column">
-
-                
-                </ul>
-              </ul>
-            </div>
-            
-          </nav>
-
-          <div class="col-sm-8 event-main">
-            <h2 id="presentation">Presentation</h2>
-
-            <h2 id="practicalInfo">Practical info</h2>
-            <ul id=info></ul>
-            
-              <h2 id="photos">Photos</h2>
-              <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                </ol>
-                <div id="carousel" class="carousel-inner">
-                </div>
-                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                  <span class="carousel-control-prev-icon text-dark" aria-hidden="true"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="sr-only">Next</span>
-                </a>
-              </div>
-              <a id= previous class="btn btn-primary" role="button">Previous</a>
-
-              <a id = next class="btn btn-primary" href="#" role="button">Next</a>
-              </nav>
-            </div>
+    <div class="container-fluid">
+      <div class="row d-md-none p-2">
+        <button class="btn btn-success collapsed" type="button" data-toggle="collapse" data-target="#bar"
+          aria-controls="bar" aria-expanded="false" aria-label="Toggle navigation">
+          Menu <img src="../assets/image/keyboard_arrow_down-black-18dp.svg">
+        </button>
+      </div>
+      <div class="row">
+        <nav id="bar"
+          class="col-md-3 col-lg-2 d-md-block position-relative bg-light sidebar collapse border border-grey">
+          <div class="row m-2">
+            <ul class="nav nav-pills flex-column">
+              <li class="text-secondary">
+                Service:
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#presentation">Presentation</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#practicalInfo">Practical info</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#photos">Photos</a>
+              </li>
+            </ul>
           </div>
+          <div class="row m-1">
+            <ul class="nav nav-pills flex-column">
+              <li class="text-secondary">
+                Info related:
+              </li>
+              <li class="nav-item">
+                <a id="contact" class="nav-link"></a>
+              </li>
+
+              <ul id=service-presented class="nav nav-pills flex-column">
+
+
+              </ul>
+            </ul>
+          </div>
+
+        </nav>
+
+        <div class="col-sm-8 event-main">
+          <h2 id="presentation">Presentation</h2>
+
+          <h2 id="practicalInfo">Practical info</h2>
+          <ul id=info></ul>
+
+          <h2 id="photos">Photos</h2>
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+            </ol>
+            <div id="carousel" class="carousel-inner">
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon text-dark" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <a id=previous class="btn btn-success" role="button">Previous</a>
+
+          <a id=next class="btn btn-success" role="button">Next</a>
+          </nav>
         </div>
       </div>
     </div>
-    <div id="footer">
-      <footer id="footer" class="page-footer font-small bg-primary pt-4 mt-4">
-        <div class="footer-copyright text-center py-3">© 2020 Copyright:
-          <a class="text-dark" href="https://mdbootstrap.com/"> MDBootstrap.com</a>
-        </div>
-      </footer>
-    </div>
+  </div>
+  </div>
+  <div id="footer">
+    <footer id="footer" class="page-footer font-small bg-success pt-4 mt-4">
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a class="text-dark" href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+      </div>
+    </footer>
+  </div>
 
-    <script type="module" src="../assets/js/event.js"></script>
-    <script
-      src="https://code.jquery.com/jquery-3.4.1.min.js"
-      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-      crossorigin="anonymous"
-    ></script>
-  </body>
+  <script type="module" src="../assets/js/event.js"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
+</body>
+
 </html>

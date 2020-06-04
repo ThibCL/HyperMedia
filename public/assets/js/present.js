@@ -47,6 +47,7 @@ $(document).ready(function () {
     })
   })
 
+  console.log(id)
   $.get("http://localhost:8080/v1/service/" + id, function (response) {
     document.getElementById("service").textContent = response.name
     document.getElementById("service").href =

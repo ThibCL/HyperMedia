@@ -72,8 +72,13 @@ exports.getServiceById = function (serviceId) {
     try {
       var service = await sqlDb("service")
         .where("service.id", serviceId)
-        .join("service_info", "service.id", "=", "service_info.service_id")
-        .join("service_photo", "service.id", "=", "service_photo.service_id")
+        .leftJoin("service_info", "service.id", "=", "service_info.service_id")
+        .leftJoin(
+          "service_photo",
+          "service.id",
+          "=",
+          "service_photo.service_id"
+        )
         .select("service.id", "name", "presentation", "info", "title")
 
       if (service.length == 0) {
@@ -86,11 +91,11 @@ exports.getServiceById = function (serviceId) {
       var photos = []
       var infos = []
       service.forEach(function (element) {
-        if (photos.indexOf(element.title) == -1) {
+        if (photos.indexOf(element.title) == -1 && element.title != null) {
           photos.push(element.title)
         }
 
-        if (infos.indexOf(element.info) == -1) {
+        if (infos.indexOf(element.info) == -1 && element.info != null) {
           infos.push(element.info)
         }
       })
