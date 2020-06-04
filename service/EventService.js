@@ -81,11 +81,12 @@ exports.getAllEventByMonth = function () {
         .select("id", "description", "name", "start_date", "end_date")
       var resp=[]
       events.forEach(element => {
-        var month = element["start_date"][0] + element["start_date"][1] + element["start_date"][2] + element["start_date"][3] + element["start_date"][4] + element["start_date"][5]+ element["start_date"][6]
-        if(month===resp[resp.length-1][0]){
-          resp[resp.length-1].push(element)
+        var monthtemp = element["start_date"].substring(0,7)
+        if(month===resp[resp.length-1].month){
+          resp[resp.length-1].elements.push(element)
         }else{
-          resp.push([month,element])
+          var obj ={month: monthtemp, elements=[element]}
+          resp.push(obj)
         }
       })
 
