@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>event</title>
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <a class="navbar-brand" href="../index.html">Home</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/Association">Association</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/allServices">Service</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/allPerson">Person</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/allEvents">Event</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div id="event">
+      <nav aria-label="breadcrumb">
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a href="../index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="#">Event</a></li>
+          <li
+            id="eventName"
+            class="breadcrumb-item active"
+            aria-current="page"
+          ></li>
+        </ul>
+      </nav>
+
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3 blog-sidebar">
+            <div class="sidebar-module">
+              <h4>Presentation</h4>
+              <p>Etiam porta <em>sem malesuada magna</em></p>
+            </div>
+
+            <div class="sidebar-module">
+              <h4>Contact</h4>
+              <div id="lienDeContact"></div>
+              
+                <a id=contact></a>
+            </div>
+            <div class="sidebar-module">
+              <h4>Service presented</h4>
+              <ol class="list-unstyled">
+                <li><a href="#">exemple 1</a></li>
+                <li><a href="#">exemple 2</a></li>
+              </ol>
+            </div>
+          </div>
+
+          <div class="col-sm-8 event-main">
+            <h2 id="pres">Presentation</h2>
+
+            <h2 id="practical">Practical info</h2>
+            <ul id=info></ul>
+            
+              <h2>Images</h2>
+
+              <div id=images></div>
+              <nav>
+              <a id= previous class="btn btn-primary" role="button">Previous</a>
+
+              <a id = next class="btn btn-primary" href="#" role="button">Next</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="../assets/js/event.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.min.js"
+      integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

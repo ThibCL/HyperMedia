@@ -12,6 +12,7 @@ exports.eventDbSetup = function (s) {
           table.increments("id").primary().notNullable()
           table.text("name").notNullable()
           table.text("presentation")
+          table.text("description")
           table.date("start_date").notNullable()
           table.date("end_date").notNullable()
           table.integer("contact").references("id").inTable("person")
@@ -55,30 +56,14 @@ exports.eventDbSetup = function (s) {
  * returns List
  **/
 exports.getAllEvent = function () {
-  return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = [
-      {
-        "end-date": "2020-10-23",
-        "photo-description": "garbage-collection-2020-10-23",
-        name: "garbage collection at the Seine banks.",
-        description: "description",
-        "start-date": "2020-10-23",
-        "event-id": 3,
-      },
-      {
-        "end-date": "2020-10-23",
-        "photo-description": "garbage-collection-2020-10-23",
-        name: "garbage collection at the Seine banks.",
-        description: "description",
-        "start-date": "2020-10-23",
-        "event-id": 3,
-      },
-    ]
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+  return new Promise(async function (resolve, reject) {
+    try {
+      var event = await sqlDb("event")
+        .orderBy("start_date", "desc")
+        .select("id", "description", "name","start_date","end_date")
+      resolve(event)
+    } catch (e) {
+      reject(e)
     }
   })
 }
@@ -89,56 +74,25 @@ exports.getAllEvent = function () {
  * returns List
  **/
 exports.getAllEventByMonth = function () {
-  return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = [
-      {
-        date: "2000-01-23",
-        events: [
-          {
-            "end-date": "2020-10-23",
-            "photo-description": "garbage-collection-2020-10-23",
-            name: "garbage collection at the Seine banks.",
-            description: "description",
-            "start-date": "2020-10-23",
-            "event-id": 3,
-          },
-          {
-            "end-date": "2020-10-23",
-            "photo-description": "garbage-collection-2020-10-23",
-            name: "garbage collection at the Seine banks.",
-            description: "description",
-            "start-date": "2020-10-23",
-            "event-id": 3,
-          },
-        ],
-      },
-      {
-        date: "2000-01-23",
-        events: [
-          {
-            "end-date": "2020-10-23",
-            "photo-description": "garbage-collection-2020-10-23",
-            name: "garbage collection at the Seine banks.",
-            description: "description",
-            "start-date": "2020-10-23",
-            "event-id": 3,
-          },
-          {
-            "end-date": "2020-10-23",
-            "photo-description": "garbage-collection-2020-10-23",
-            name: "garbage collection at the Seine banks.",
-            description: "description",
-            "start-date": "2020-10-23",
-            "event-id": 3,
-          },
-        ],
-      },
-    ]
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+  return new Promise(async function (resolve, reject) {
+    try {
+      var events = await sqlDb("event")
+        .orderBy("start_date", "desc")
+        .select("id", "description", "name", "start_date", "end_date")
+      var resp=[]
+      events.forEach(element => {
+        var monthtemp = element["start_date"].substring(0,7)
+        if(month===resp[resp.length-1].month){
+          resp[resp.length-1].elements.push(element)
+        }else{
+          var obj ={month: monthtemp, elements=[element]}
+          resp.push(obj)
+        }
+      })
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
@@ -151,25 +105,42 @@ exports.getAllEventByMonth = function () {
  **/
 exports.getEventByID = function (eventId) {
   return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = {
-      presentation:
-        "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-      "end-date": "2020-10-23",
-      "pratical-info": [
-        "A document that summarizes all the information is available here ...",
-        "If you want to propose some ideas you can send an email to ...",
-      ],
-      contact: "contact",
-      name: "garbage collection at the Seine banks.",
-      "start-date": "2020-10-23",
-      "event-id": 3,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
-    }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+    try {
+      var event = await sqlDb("event")
+        .leftJoin("event_photo", "event.id", "=", "event_id")
+        .where("event.id", eventId)
+
+      if (event.length == 0) {
+        reject({
+          error: "The id does not correspond to an event",
+          statusCode: 400,
+        })
+      }
+
+      
+      var photos = []
+      event.forEach((element) => {
+        element.title != null && photos.push(element.title)
+      })
+
+      var info = await sqlDb("event_info")
+      .select("info")
+      .where("event-id",eventId)      
+
+      var resp = {
+        "event-id": event[0].id || eventId,
+        "name": event[0].name,
+        "end-date": event[0].end_date,
+        "start-date": event[0].start_date,
+        presentation: event[0].presentation,
+        photo: photos,
+        "practical-info":info,
+        contact: event[0].contact
+      }
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
@@ -182,41 +153,17 @@ exports.getEventByID = function (eventId) {
  **/
 exports.getEventPresentsService = function (serviceId) {
   return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = [
-      {
-        presentation:
-          "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-        "end-date": "2020-10-23",
-        "pratical-info": [
-          "A document that summarizes all the information is available here ...",
-          "If you want to propose some ideas you can send an email to ...",
-        ],
-        contact: "contact",
-        name: "garbage collection at the Seine banks.",
-        "start-date": "2020-10-23",
-        "event-id": 3,
-        photos: ["garbage2020-10-23", "some-participant", "before-after"],
-      },
-      {
-        presentation:
-          "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-        "end-date": "2020-10-23",
-        "pratical-info": [
-          "A document that summarizes all the information is available here ...",
-          "If you want to propose some ideas you can send an email to ...",
-        ],
-        contact: "contact",
-        name: "garbage collection at the Seine banks.",
-        "start-date": "2020-10-23",
-        "event-id": 3,
-        photos: ["garbage2020-10-23", "some-participant", "before-after"],
-      },
-    ]
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+    try {
+      var ids = await sqlDb("presents")
+        .where("service_id", serviceId).select("event_id")
+
+      var resp = await sqlDb("event").whereIn("id", ids).orderBy("start_date", "desc")
+        .select("id", "description", "name", "start_date", "end_date")
+
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
@@ -229,25 +176,16 @@ exports.getEventPresentsService = function (serviceId) {
  **/
 exports.getNextEvent = function (eventId) {
   return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = {
-      presentation:
-        "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-      "end-date": "2020-10-23",
-      "pratical-info": [
-        "A document that summarizes all the information is available here ...",
-        "If you want to propose some ideas you can send an email to ...",
-      ],
-      contact: "contact",
-      name: "garbage collection at the Seine banks.",
-      "start-date": "2020-10-23",
-      "event-id": 3,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
-    }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+    try {
+      var date = await sqlDb("event")
+        .where("event.id", eventId).select("date")
+
+      var next = await sqlDb("event").whereIn("id", ids).andWhere("date",">",date).orderBy("date","asc").limit(1).select("id")
+
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
@@ -261,25 +199,17 @@ exports.getNextEvent = function (eventId) {
  **/
 exports.getNextPresentsEvent = function (eventId, service) {
   return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = {
-      presentation:
-        "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-      "end-date": "2020-10-23",
-      "pratical-info": [
-        "A document that summarizes all the information is available here ...",
-        "If you want to propose some ideas you can send an email to ...",
-      ],
-      contact: "contact",
-      name: "garbage collection at the Seine banks.",
-      "start-date": "2020-10-23",
-      "event-id": 3,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
-    }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+    try {
+      var date = await sqlDb("event")
+        .where("event.id", eventId).select("date")
+      var ids = await sqlDb("presents")
+        .where("service_id", serviceId).select("event_id")
+      var next = await sqlDb("event").where().andWhere("date", ">", date).orderBy("date", "asc").limit(1).select("id")
+
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
@@ -292,28 +222,21 @@ exports.getNextPresentsEvent = function (eventId, service) {
  **/
 exports.getPreviousEvent = function (eventId) {
   return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = {
-      presentation:
-        "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-      "end-date": "2020-10-23",
-      "pratical-info": [
-        "A document that summarizes all the information is available here ...",
-        "If you want to propose some ideas you can send an email to ...",
-      ],
-      contact: "contact",
-      name: "garbage collection at the Seine banks.",
-      "start-date": "2020-10-23",
-      "event-id": 3,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
-    }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
-    }
+    
+      try {
+        var date = await sqlDb("event")
+          .where("event.id", eventId).select("date")
+
+        var next = await sqlDb("event").where("date", "<", date).orderBy("date", "desc").limit(1).select("id")
+
+
+        resolve(resp)
+      } catch (e) {
+        reject(e)
+      }
   })
 }
+
 
 /**
  * returns the previous event that presents the service in query
@@ -324,25 +247,16 @@ exports.getPreviousEvent = function (eventId) {
  **/
 exports.getPreviousPresentsEvent = function (eventId, service) {
   return new Promise(function (resolve, reject) {
-    var examples = {}
-    examples["application/json"] = {
-      presentation:
-        "In this event we go to collect garbage on the Seine Banks for a day to have a nicer city. It is also a good way to meet people form the association!",
-      "end-date": "2020-10-23",
-      "pratical-info": [
-        "A document that summarizes all the information is available here ...",
-        "If you want to propose some ideas you can send an email to ...",
-      ],
-      contact: "contact",
-      name: "garbage collection at the Seine banks.",
-      "start-date": "2020-10-23",
-      "event-id": 3,
-      photos: ["garbage2020-10-23", "some-participant", "before-after"],
-    }
-    if (Object.keys(examples).length > 0) {
-      resolve(examples[Object.keys(examples)[0]])
-    } else {
-      resolve()
+    try {
+      var date = await sqlDb("event")
+        .where("event.id", eventId).select("date")
+
+      var next = await sqlDb("event").whereIn("id", ids).andWhere("date", "<", date).orderBy("date", "desc").limit(1).select("id")
+
+
+      resolve(resp)
+    } catch (e) {
+      reject(e)
     }
   })
 }
