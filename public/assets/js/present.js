@@ -7,6 +7,7 @@ $(document).ready(function () {
   $.get("http://localhost:8080/v1/event/presents?service-id=" + id, function (
     response
   ) {
+    console.log(response)
     response.forEach((item) => {
       var li = document.createElement("li")
 
@@ -46,7 +47,7 @@ $(document).ready(function () {
     })
   })
 
-  $$.get("http://localhost:8080/v1/service/" + id, function (response) {
+  $.get("http://localhost:8080/v1/service/" + id, function (response) {
     document.getElementById("service").textContent = response.name
     document.getElementById("service").href =
       "/pages/service.html?service-id=" + id

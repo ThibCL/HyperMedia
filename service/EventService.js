@@ -60,7 +60,7 @@ exports.getAllEvent = function () {
     try {
       var event = await sqlDb("event")
         .orderBy("start_date", "desc")
-        .select("id", "description", "name","start_date","end_date")
+        .select("id", "description", "name", "start_date", "end_date")
       resolve(event)
     } catch (e) {
       reject(e)
@@ -79,13 +79,13 @@ exports.getAllEventByMonth = function () {
       var events = await sqlDb("event")
         .orderBy("start_date", "desc")
         .select("id", "description", "name", "start_date", "end_date")
-      var resp=[]
-      events.forEach(element => {
-        var monthtemp = element["start_date"].substring(0,7)
-        if(month===resp[resp.length-1].month){
-          resp[resp.length-1].elements.push(element)
-        }else{
-          var obj ={month: monthtemp, elements=[element]}
+      var resp = []
+      events.forEach((element) => {
+        var monthtemp = element["start_date"].substring(0, 7)
+        if (month === resp[resp.length - 1].month) {
+          resp[resp.length - 1].elements.push(element)
+        } else {
+          var obj = { month: monthtemp, elements: [element] }
           resp.push(obj)
         }
       })
@@ -104,10 +104,10 @@ exports.getAllEventByMonth = function () {
  * returns Event
  **/
 exports.getEventByID = function (eventId) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(async function (resolve, reject) {
     try {
       var event = await sqlDb("event")
-        .leftJoin("event_photo", "event.id", "=", "event_id")
+        .leftJoin("event_photo", "event.id", "=", "event_photo.id")
         .where("event.id", eventId)
 
       if (event.length == 0) {
@@ -117,25 +117,24 @@ exports.getEventByID = function (eventId) {
         })
       }
 
-      
       var photos = []
       event.forEach((element) => {
         element.title != null && photos.push(element.title)
       })
 
       var info = await sqlDb("event_info")
-      .select("info")
-      .where("event-id",eventId)      
+        .select("info")
+        .where("event_id", eventId)
 
       var resp = {
         "event-id": event[0].id || eventId,
-        "name": event[0].name,
+        name: event[0].name,
         "end-date": event[0].end_date,
         "start-date": event[0].start_date,
         presentation: event[0].presentation,
-        photo: photos,
-        "practical-info":info,
-        contact: event[0].contact
+        photos: photos,
+        "practical-info": info,
+        contact: event[0].contact,
       }
 
       resolve(resp)
@@ -152,14 +151,18 @@ exports.getEventByID = function (eventId) {
  * returns List
  **/
 exports.getEventPresentsService = function (serviceId) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(async function (resolve, reject) {
     try {
       var ids = await sqlDb("presents")
-        .where("service_id", serviceId).select("event_id")
+        .where("service_id", serviceId)
+        .select("event_id")
 
-      var resp = await sqlDb("event").whereIn("id", ids).orderBy("start_date", "desc")
+      ids = ids.map((x) => x.event_id)
+
+      var resp = await sqlDb("event")
+        .whereIn("id", ids)
+        .orderBy("start_date", "desc")
         .select("id", "description", "name", "start_date", "end_date")
-
 
       resolve(resp)
     } catch (e) {
@@ -175,15 +178,23 @@ exports.getEventPresentsService = function (serviceId) {
  * returns Event
  **/
 exports.getNextEvent = function (eventId) {
-  return new Promise(function (resolve, reject) {
+  return new Promise(async function (resolve, reject) {
     try {
       var date = await sqlDb("event")
-        .where("event.id", eventId).select("date")
+        .where("event.id", eventId)
+        .select("start_date")
 
-      var next = await sqlDb("event").whereIn("id", ids).andWhere("date",">",date).orderBy("date","asc").limit(1).select("id")
+      var next = await sqlDb("event")
+        .where("start_date", ">", date[0].start_date)
+        .orderBy("start_date", "asc")
+        .limit(1)
+        .select("id")
 
-
-      resolve(resp)
+      if (next.length == 0) {
+        resolve({ id: 0 })
+      } else {
+        resolve(next[0])
+      }
     } catch (e) {
       reject(e)
     }
@@ -197,17 +208,30 @@ exports.getNextEvent = function (eventId) {
  * service Integer service id of the service we are doing the guided tour in
  * returns Event
  **/
-exports.getNextPresentsEvent = function (eventId, service) {
-  return new Promise(function (resolve, reject) {
+exports.getNextPresentsEvent = function (eventId, serviceId) {
+  return new Promise(async function (resolve, reject) {
     try {
       var date = await sqlDb("event")
-        .where("event.id", eventId).select("date")
+        .where("event.id", eventId)
+        .select("start_date")
+
       var ids = await sqlDb("presents")
-        .where("service_id", serviceId).select("event_id")
-      var next = await sqlDb("event").where().andWhere("date", ">", date).orderBy("date", "asc").limit(1).select("id")
+        .where("service_id", serviceId)
+        .select("event_id")
+      ids = ids.map((x) => x.event_id)
 
+      var next = await sqlDb("event")
+        .whereIn("id", ids)
+        .andWhere("start_date", ">", date[0].start_date)
+        .orderBy("start_date", "asc")
+        .limit(1)
+        .select("id")
 
-      resolve(resp)
+      if (next.length == 0) {
+        resolve({ id: 0 })
+      } else {
+        resolve(next[0])
+      }
     } catch (e) {
       reject(e)
     }
@@ -221,22 +245,28 @@ exports.getNextPresentsEvent = function (eventId, service) {
  * returns Event
  **/
 exports.getPreviousEvent = function (eventId) {
-  return new Promise(function (resolve, reject) {
-    
-      try {
-        var date = await sqlDb("event")
-          .where("event.id", eventId).select("date")
+  return new Promise(async function (resolve, reject) {
+    try {
+      var date = await sqlDb("event")
+        .where("event.id", eventId)
+        .select("start_date")
 
-        var next = await sqlDb("event").where("date", "<", date).orderBy("date", "desc").limit(1).select("id")
+      var next = await sqlDb("event")
+        .where("event.start_date", "<", date[0].start_date)
+        .orderBy("start_date", "desc")
+        .limit(1)
+        .select("id")
 
-
-        resolve(resp)
-      } catch (e) {
-        reject(e)
+      if (next.length == 0) {
+        resolve({ id: 0 })
+      } else {
+        resolve(next[0])
       }
+    } catch (e) {
+      reject(e)
+    }
   })
 }
-
 
 /**
  * returns the previous event that presents the service in query
@@ -245,16 +275,30 @@ exports.getPreviousEvent = function (eventId) {
  * service Long service id of the service we are doing the guided tour in
  * returns Event
  **/
-exports.getPreviousPresentsEvent = function (eventId, service) {
-  return new Promise(function (resolve, reject) {
+exports.getPreviousPresentsEvent = function (eventId, serviceId) {
+  return new Promise(async function (resolve, reject) {
     try {
       var date = await sqlDb("event")
-        .where("event.id", eventId).select("date")
+        .where("event.id", eventId)
+        .select("start_date")
 
-      var next = await sqlDb("event").whereIn("id", ids).andWhere("date", "<", date).orderBy("date", "desc").limit(1).select("id")
+      var ids = await sqlDb("presents")
+        .where("service_id", serviceId)
+        .select("event_id")
+      ids = ids.map((x) => x.event_id)
 
+      var next = await sqlDb("event")
+        .whereIn("id", ids)
+        .andWhere("start_date", "<", date[0].start_date)
+        .orderBy("start_date", "desc")
+        .limit(1)
+        .select("id")
 
-      resolve(resp)
+      if (next.length == 0) {
+        resolve({ id: 0 })
+      } else {
+        resolve(next[0])
+      }
     } catch (e) {
       reject(e)
     }

@@ -68,7 +68,7 @@ $(document).ready(function () {
         document.getElementById(
           "previous"
         ).href = "http://localhost:8080/pages/event.html?event-id=".concat(
-          response["event-id"]
+          response["id"]
         )
       }
     )
@@ -80,12 +80,12 @@ $(document).ready(function () {
     var presentation = document.createElement("p")
     presentation.textContent = response.presentation
     document
-      .getElementById("pres")
+      .getElementById("presentation")
       .insertAdjacentElement("afterend", presentation)
     var practical = document.getElementById("practical")
-    response["pratical-info"].forEach((element) => {
+    response["practical-info"].forEach((element) => {
       var info = document.createElement("li")
-      info.textContent = element
+      info.textContent = element.info
       document.getElementById("info").appendChild(info)
     })
     var i = 0
@@ -126,21 +126,20 @@ $(document).ready(function () {
         )
       }
     )
-
     $.get(
-      "http://localhost:8080/v1//service/presented-in?event-id=".concat(
-        response.id
+      "http://localhost:8080/v1/service/presented-in?event-id=".concat(
+        response["event-id"]
       ),
       function (response) {
         response.forEach((element) => {
           var li = document.createElement("li")
           var a = document.createElement("a")
           a.className = "nav-link"
-          a.href = "/pages/service.html?service-id=" + element["service-id"]
+          a.href = "/pages/service.html?service-id=" + element["id"]
           a.text = element.name
 
           li.appendChild(a)
-          $("#service-presented").appendChild(li)
+          $("#service-presented").append(li)
         })
       }
     )
