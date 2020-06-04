@@ -8,7 +8,7 @@ info:
     \ events organised.\n"
   version: "0.0.0"
   title: "AgirPourLEnvironnement"
-host: "localhost:8080"
+host: "agirpourlenvironnement.herokuapp.com"
 basePath: "/v1"
 tags:
   - name: "Service"
@@ -20,7 +20,7 @@ tags:
   - name: "User"
     description: "Interact with data related with user."
 schemes:
-  - "http"
+  - "https"
 paths:
   /service:
     get:
