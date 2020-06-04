@@ -27,75 +27,83 @@
                 <tr>
                     <td>1</td>
                     <td>administrator</td>
-                    <td>Foo</td>
-                    <td>FooL</td>
-                    <td>123456</td>
-                    <td>foo@example.com</td>
+                    <td>Thibault</td>
+                    <td>Cabourg</td>
+                    <td>935800</td>
+                    <td>thibault.cabourg@gmail.com</td>
                 </tr>
                 <tr>
                     <td>2</td>
                     <td>member</td>
-                    <td>BarL</td>
-                    <td>78982</td>
+                    <td>Lucas</td>
+                    <td>Deswarte</td>
+                    <td>935806</td>
                     <td>bar@example.com</td>
-                </tr>
-                <tr>
-                    <td>......</td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td></td>
                 </tr>
             </tbody>
         </table>
     </blockquote>
     <h2 id="links-to-other-deliverables">Links to other deliverables</h2>
     <ul>
-        <li>Deliverable D0: the web application is accessible at <a href="https://example.com">this
+        <li>Deliverable D0: the web application is accessible at <a
+                href="https://agirpourlenvironnement.herokuapp.com">this
                 address</a>.</li>
         <li>Deliverable D2: the YAML or JSON file containing the specification
-            of the app API can be found at <a href="https://example.com/backend/spec.yaml">this
+            of the app API can be found at <a href="https://agirpourlenvironnement.herokuapp.com/backend/spec.yaml">this
                 address</a>.</li>
         <li>Deliverable D3: the SwaggerUI page of the same API is available at
-            <a href="https://example.com/backend/swaggerui">this address</a>.</li>
+            <a href="https://agirpourlenvironnement.herokuapp.com/backend/swaggerui">this address</a>.</li>
         <li>Deliverable D4: the source code of D0 is available as a zip file at
-            <a href="https://example.com/backend/app.zip">this address</a>.</li>
+            <a href="https://agirpourlenvironnement.herokuapp.com/backend/app.zip">this address</a>.</li>
         <li>Deliverable D5: the address of the online source control repository
-            is available <a href="https://examplegit.com">this address</a>. We hereby
+            is available <a href="https://github.com/ThibCL/HyperMedia">this address</a>. We hereby
             declare that this is a private repository and, upon request, we will
             give access to the instructors.</li>
     </ul>
     <h2 id="specification">Specification</h2>
     <h3 id="web-architecture">Web Architecture</h3>
-    <p>Describe here, with a diagram, the components of your web application
-        and how they interact. Highlight which parts belong to the application
-        layer, data layer or presentation layer. How did you ensure that HTML is
-        not rendered server side?</p>
+    <img src="/backend/image/hyp.png">
+    <p>
+        To ensure that the HTML is not rendered server side we used the package "serve-static" of npm that permits to
+        send to the browser static file. Then the
+        browser renders the HTML and to change content depending on the user request we do ajax call to the API.
+    </p>
     <h3 id="api">API</h3>
     <h4 id="rest-compliance">REST compliance</h4>
-    <p>Describe here to what extent did you follow REST principles and what are
-        the reasons for which you might have decided to diverge. Note, you must
-        not describe the whole API here, just the design decisions.</p>
+    <p>
+        We have followed up completely the REST principles by using the HTTP verbs to do the request (we actually used
+        only GET because that was the
+        only one needed), and by using the right scheme for requests to describe the ressources wanted.
+        For example we used the path to specify the service to use and some other parameter related to the service, and
+        we used query parameter
+        for complementary data not related to the service specify in the path.
+    </p>
     <h4 id="openapi-resource-models">OpenAPI Resource models</h4>
-    <p>Describe here synthetically, which models you have introduced for
-        resources.</p>
+    <p>
+        For ressources in the OpenAPI specification we have introduced models for the three main object in our
+        application (Service, Person, Event) with
+        all the information stored in the database. But also other models that correspond to response of some requests,
+        for example ServiceDescripion that
+        contains only main information to describe the service in the page "All service". The purpose is to limit the
+        information send back to the minimum needed
+        by the request.
+    </p>
     <h3 id="data-model">Data model</h3>
-    <p>Describe with an ER diagram the model used in the data layer of your web
-        application. How these map to the OpenAPI data model?</p>
+    <img src="/backend/image/basedonné.png">
+    <p>
+        These ER diagram map to the OpenAPI data model for the main objects (Service, Event, Person). But the database
+        store also the
+        relation between them (involves, presents).
+    </p>
     <h2 id="implementation">Implementation</h2>
     <h3 id="tools-used">Tools used</h3>
-    <p>Describe here which tools, languages and frameworks did you use for thebackend of the application.</p>
+    <p>
+        For the backend of the application we used the language Javascript with the environment NodeJs to help
+        implementing the server.
+        Moreover we used the library 'knex.js' for the SQL queries.
+        For the tools we used VsCode as text editor that is really helpful with the different extension and also Github
+        to be able to develop
+        the application at two and review the work of the other one.
     <h3 id="discussion">Discussion</h3>
     <p>Describe here:</p>
     <ul>
@@ -117,8 +125,15 @@
         of the group, e.g.:</p>
     <blockquote>
         <ul>
-            <li>Foo worked on front end (80%) and OpenAPI Spec (20% of the time)</li>
-            <li>Bar worked on ....</li>
+            <li>Lucas worked on the descrition of Events endpoints and model in the Swagger specification</li>
+            <li>Thibault worked on the description of Person and Service endpoints and models in the Swagger
+                specification</li>
+            <li>Lucas worked at 60% of the implementation of front pages and 50% of the implementation of the backend
+                endpoints</li>
+            <li>Thibault worked at 50% of the implementation of front pages and 50% of the implementation of the backend
+                endpoints</li>
+            <li>Thibault deployed the application and merge new features on master to deploy them in heroku</li>
+            <li>Both of the students spent time to review the work of the other</li>
         </ul>
     </blockquote>
     <h3 id="analysis-of-existing-api">Analysis of existing API</h3>
@@ -139,10 +154,8 @@
         </p>
     </blockquote>
     <h3 id="learning-outcome">Learning outcome</h3>
-    <p>What was the most important thing all the members have learned whiledeveloping this part of the project, what
-        questions remained unanswered,
-        how you will use what you&#39;ve learned in your everyday life?
-        Examples:</p>
+    <p>The most important things we have learned during the project are:
+    </p>
     <ul>
         <li>Foo learned to write SQL queries and Javascript but wanted to know
             more about caching, he&#39;s probably going to create his own startup
@@ -150,7 +163,14 @@
         <li>Bar learned how to deploy on a cloud platform, he would have liked
             to know more about promises for asynchronous code..</li>
     </ul>
-
+    <p>The questions that remained unanswered are:</p>
+    <ul>
+        <li></li>
+    </ul>
+    <p>Finally, how we will use in your everyday life the things we have learned:</p>
+    <ul>
+        <li></li>
+    </ul>
 </body>
 
 </html>

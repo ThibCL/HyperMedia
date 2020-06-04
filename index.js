@@ -21,7 +21,7 @@ console.log(options)
 
 // The Swagger document (require it, build it programmatically, fetch it from a URL, ...)
 var spec = fs.readFileSync(
-  path.join(__dirname, "public/backend/swagger.yaml"),
+  path.join(__dirname, "public/backend/spec.yaml"),
   "utf8"
 )
 var swaggerDoc = jsyaml.safeLoad(spec)
