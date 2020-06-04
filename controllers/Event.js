@@ -9,7 +9,12 @@ module.exports.getAllEvent = function getAllEvent(req, res, next) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -23,7 +28,12 @@ module.exports.getAllEventByMonth = function getAllEventByMonth(
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -54,7 +64,12 @@ module.exports.getEventPresentsService = function getEventPresentsService(
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -65,7 +80,12 @@ module.exports.getNextEvent = function getNextEvent(req, res, next) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -75,13 +95,18 @@ module.exports.getNextPresentsEvent = function getNextPresentsEvent(
   next
 ) {
   var eventId = req.swagger.params["eventId"].value
-  var service = req.swagger.params["service-id"].value
-  Event.getNextPresentsEvent(eventId, service)
+  var serviceId = req.swagger.params["service-id"].value
+  Event.getNextPresentsEvent(eventId, serviceId)
     .then(function (response) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -92,7 +117,12 @@ module.exports.getPreviousEvent = function getPreviousEvent(req, res, next) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }
 
@@ -102,12 +132,17 @@ module.exports.getPreviousPresentsEvent = function getPreviousPresentsEvent(
   next
 ) {
   var eventId = req.swagger.params["eventId"].value
-  var service = req.swagger.params["service-id"].value
-  Event.getPreviousPresentsEvent(eventId, service)
+  var serviceId = req.swagger.params["service-id"].value
+  Event.getPreviousPresentsEvent(eventId, serviceId)
     .then(function (response) {
       utils.writeJson(res, response)
     })
     .catch(function (response) {
-      utils.writeJson(res, response)
+      console.error(response)
+      if (response.error && response.statusCode) {
+        utils.writeJson(res, response.error, response.statusCode)
+      } else {
+        utils.writeJson(res, { error: "Please retry later" }, 500)
+      }
     })
 }

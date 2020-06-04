@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  var event = document.getElementById("event")
   var id = "1"
   var paramsString = window.location.search.toString()
   var searchParams = new URLSearchParams(paramsString)
@@ -14,62 +13,77 @@ $(document).ready(function () {
       response
     ) {
       var li = document.createElement("li")
-      li.class = "breadcrumb-item"
+      li.className = "breadcrumb-item"
+
       var a = document.createElement("a")
-      a.class = "breadcrumb-item"
       a.href = "/pages/service.html?service-id=" + serviceId
       a.textContent = response.name
       li.appendChild(a)
-      document.getElementById("home").insertAdjacentHTML("afterend", li)
+      $("#home").after(li)
+
+      console.log($("#eventlink"))
+      $("#eventlink")[0].href = "/pages/present.html?service-id=" + serviceId
     })
 
     $.get(
       "http://localhost:8080/v1/event/"
         .concat(id)
-        .concat("/nextPresents?service=")
+        .concat("/nextPresents?service-id=")
         .concat(serviceId),
       function (response) {
-        document.getElementById(
-          "next"
-        ).href = "http://localhost:8080/pages/event.html?event-id=".concat(
-          response["event-id"]
-        )
+        var next_button = document.getElementById("next")
+        if (response.id == 0) {
+          next_button.className += " disabled"
+        } else {
+          next_button.href = "http://localhost:8080/pages/event.html?event-id=".concat(
+            response.id + "&service-id=" + serviceId
+          )
+        }
       }
     )
 
     $.get(
       "http://localhost:8080/v1/event/"
         .concat(id)
-        .concat("/previousPresents?service=")
+        .concat("/previousPresents?service-id=")
         .concat(serviceId),
       function (response) {
-        document.getElementById(
-          "previous"
-        ).href = "http://localhost:8080/pages/event.html?event-id=".concat(
-          response["event-id"]
-        )
+        var previous_button = document.getElementById("previous")
+        if (response.id == 0) {
+          previous_button.className += " disabled"
+        } else {
+          previous_button.href = "http://localhost:8080/pages/event.html?event-id=".concat(
+            response.id + "&service-id=" + serviceId
+          )
+        }
       }
     )
   } else {
     $.get(
       "http://localhost:8080/v1/event/".concat(id).concat("/next"),
       function (response) {
-        document.getElementById(
-          "next"
-        ).href = "http://localhost:8080/pages/event.html?event-id=".concat(
-          response["event-id"]
-        )
+        var next_button = document.getElementById("next")
+        if (response.id == 0) {
+          next_button.className += " disabled"
+        } else {
+          next_button.href = "http://localhost:8080/pages/event.html?event-id=".concat(
+            response.id
+          )
+        }
       }
     )
 
     $.get(
       "http://localhost:8080/v1/event/".concat(id).concat("/previous"),
       function (response) {
-        document.getElementById(
-          "previous"
-        ).href = "http://localhost:8080/pages/event.html?event-id=".concat(
-          response["event-id"]
-        )
+        var previous_button = document.getElementById("previous")
+        if (response.id == 0) {
+          previous_button.className += " disabled"
+        } else {
+          previous_button.href = "http://localhost:8080/pages/event.html?event-id=".concat(
+            response.id
+          )
+        }
       }
     )
   }
@@ -80,12 +94,11 @@ $(document).ready(function () {
     var presentation = document.createElement("p")
     presentation.textContent = response.presentation
     document
-      .getElementById("pres")
+      .getElementById("presentation")
       .insertAdjacentElement("afterend", presentation)
-    var practical = document.getElementById("practical")
-    response["pratical-info"].forEach((element) => {
+    response["practical-info"].forEach((element) => {
       var info = document.createElement("li")
-      info.textContent = element
+      info.textContent = element.info
       document.getElementById("info").appendChild(info)
     })
     var i = 0
@@ -126,21 +139,20 @@ $(document).ready(function () {
         )
       }
     )
-
     $.get(
-      "http://localhost:8080/v1//service/presented-in?event-id=".concat(
-        response.id
+      "http://localhost:8080/v1/service/presented-in?event-id=".concat(
+        response["event-id"]
       ),
       function (response) {
         response.forEach((element) => {
           var li = document.createElement("li")
           var a = document.createElement("a")
           a.className = "nav-link"
-          a.href = "/pages/service.html?service-id=" + element["service-id"]
+          a.href = "/pages/service.html?service-id=" + element["id"]
           a.text = element.name
 
           li.appendChild(a)
-          $("#service-presented").appendChild(li)
+          $("#service-presented").append(li)
         })
       }
     )

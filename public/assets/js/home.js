@@ -37,7 +37,7 @@ function create_card(event) {
   div.style = "width: 18rem; float:left;"
 
   var img = document.createElement("img")
-  img.src = "/assets/image/" + event["photo-description"] + ".jpg"
+  img.src = "/assets/image/" + event.photo_description + ".jpg"
   img.className = "card-img-top"
 
   var body = document.createElement("div")
@@ -48,7 +48,7 @@ function create_card(event) {
   p.innerText = event.description
 
   var a = document.createElement("a")
-  a.href = "/pages/event.html?event-id=" + event["event-id"]
+  a.href = "/pages/event.html?event-id=" + event["id"]
   a.innerText = event.name
   body.append(a)
   body.append(p)

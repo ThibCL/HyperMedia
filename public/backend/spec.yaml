@@ -157,7 +157,8 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Event"
+            type: "integer"
+            format: "int64"
       x-swagger-router-controller: "Event"
   /event/{eventId}/previous:
     get:
@@ -178,7 +179,8 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Event"
+            type: "integer"
+            format: "int64"
       x-swagger-router-controller: "Event"
   /event/{eventId}/nextPresents:
     get:
@@ -204,7 +206,8 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Event"
+            type: "integer"
+            format: "int64"
       x-swagger-router-controller: "Event"
   /event/{eventId}/previousPresents:
     get:
@@ -232,7 +235,8 @@ paths:
         "200":
           description: "Successful operation"
           schema:
-            $ref: "#/definitions/Event"
+            type: "integer"
+            format: "int64"
       x-swagger-router-controller: "Event"
   /event/presents:
     get:
