@@ -35,7 +35,7 @@ function set_backButton(id) {
 
 function create_item(item) {
   var li = document.createElement("li")
-  li.className = "p-3"
+  li.className = "col-md-6 p-md-3"
 
   var div = document.createElement("div")
 
@@ -46,7 +46,7 @@ function create_item(item) {
 
   for (i = 0; i < item.persons.length; i++) {
     var lia = document.createElement("li")
-    lia.className = "p-3"
+    lia.className = "p-md-3"
 
     var card = create_card(item.persons[i])
 
@@ -65,7 +65,6 @@ function create_item(item) {
 function create_card(person) {
   var div = document.createElement("div")
   div.className = "card"
-  div.style = "width: 18rem;"
 
   var img = document.createElement("img")
   img.src = "/assets/image/" + person.photo[0] + ".jpg"

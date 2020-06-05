@@ -1,5 +1,4 @@
 $(document).ready(function () {
-  var event = document.getElementById("event")
   var id = "1"
   var paramsString = window.location.search.toString()
   var searchParams = new URLSearchParams(paramsString)
@@ -7,39 +6,36 @@ $(document).ready(function () {
   $.get("http://localhost:8080/v1/event", function (response) {
     response.forEach((item) => {
       var li = document.createElement("li")
+      var div = document.createElement("div")
+      div.className = "row p-3"
+
+      var img = document.createElement("img")
+      img.src = "/assets/image/" + item.photo_description + ".jpg"
+      img.className = "col-3 d-none d-md-block"
+
+      var divtext = document.createElement("div")
+      divtext.className = "col-9 align-self-center"
 
       var a = document.createElement("a")
-      var p = document.createElement("p")
-      var date = new String()
-      if (item["start_date"] == item["end_date"]) {
-        var tempdate =
-          item["start_date"].substring(8) +
-          "/" +
-          item["start_date"].substring(5, 7) +
-          "/" +
-          item["start_date"].substring(8).substring(0, 4)
-        date = "On " + tempdate
-      } else {
-        var tempdate =
-          item["start_date"].substring(8) +
-          "/" +
-          item["start_date"].substring(5, 7) +
-          "/" +
-          item["start_date"].substring(8).substring(0, 4)
-        var tempdate2 =
-          item["end_date"].substring(8) +
-          "/" +
-          item["end_date"].substring(5, 7) +
-          "/" +
-          item["end_date"].substring(8).substring(0, 4)
-        date = "From " + tempdate + "to" + tempdate2
-      }
-
-      p.textContent = item.description + "<br>" + date
       a.textContent = item.name
       a.href = "/pages/event.html?event-id=" + item.id
-      li.appendChild(a)
-      li.appendChild(p)
+
+      var pdes = document.createElement("p")
+      pdes.textContent = item.description
+
+      var p = document.createElement("p")
+      var start = new Date(item.start_date)
+      var end = new Date(item.end_date)
+      p.textContent =
+        "From " + start.toDateString() + " to " + end.toDateString()
+
+      divtext.append(a)
+      divtext.append(pdes)
+      divtext.append(p)
+
+      div.append(img)
+      div.append(divtext)
+      li.append(div)
       document.getElementById("listEvents").appendChild(li)
     })
   })
