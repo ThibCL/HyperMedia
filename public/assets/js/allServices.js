@@ -15,7 +15,7 @@ function create_item(item) {
   li.className = "m-3"
 
   var div = document.createElement("div")
-  div.className = "row"
+  div.className = "row justify-content-center"
 
   var img = document.createElement("img")
   img.src = "/assets/image/" + item.photo_description + ".jpg"
@@ -32,7 +32,7 @@ function create_item(item) {
   p.textContent = item.description
 
   var text = document.createElement("div")
-  text.className = "col-9"
+  text.className = "col-9 align-self-center"
   text.appendChild(a)
   text.appendChild(p)
 
