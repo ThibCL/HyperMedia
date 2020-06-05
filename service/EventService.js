@@ -87,17 +87,32 @@ exports.getAllEventByMonth = function () {
     try {
       var events = await sqlDb("event")
         .orderBy("start_date", "desc")
-        .select("id", "description", "name", "start_date", "end_date")
-      var resp = []
+        .select(
+          "id",
+          "description",
+          "photo_description",
+          "name",
+          "start_date",
+          "end_date"
+        )
+
+      var eventmonth = {}
       events.forEach((element) => {
-        var monthtemp = element["start_date"].substring(0, 7)
-        if (month === resp[resp.length - 1].month) {
-          resp[resp.length - 1].elements.push(element)
-        } else {
-          var obj = { month: monthtemp, elements: [element] }
-          resp.push(obj)
-        }
+        var month = new Date(
+          element.start_date.getFullYear(),
+          element.start_date.getMonth(),
+          0
+        )
+
+        eventmonth[month]
+          ? eventmonth[month].push(element)
+          : (eventmonth[month] = [element])
       })
+
+      var resp = []
+      for (let [key, value] of Object.entries(eventmonth)) {
+        resp.push({ month: key, events: value })
+      }
 
       resolve(resp)
     } catch (e) {

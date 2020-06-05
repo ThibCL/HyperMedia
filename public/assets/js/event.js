@@ -91,16 +91,19 @@ $(document).ready(function () {
   $.get("http://localhost:8080/v1/event/".concat(id), function (response) {
     var eventname = document.getElementById("eventName")
     eventname.textContent = response.name
+
+    $("#title").text(response.name)
+
     var presentation = document.createElement("p")
     presentation.textContent = response.presentation
-    document
-      .getElementById("presentation")
-      .insertAdjacentElement("afterend", presentation)
+    $("#presentation").after(presentation)
+
     response["practical-info"].forEach((element) => {
       var info = document.createElement("li")
       info.textContent = element.info
       document.getElementById("info").appendChild(info)
     })
+
     var i = 0
     response["photos"].forEach((element) => {
       var li = document.createElement("li")
@@ -120,12 +123,14 @@ $(document).ready(function () {
     })
     $(".carousel-item:first-child").addClass("active")
 
-    var startdate = document.createElement("li")
-    var enddate = document.createElement("li")
-    startdate.textContent = "start date : ".concat(response["start-date"])
-    enddate.textContent = "end date : ".concat(response["end-date"])
-    document.getElementById("info").appendChild(startdate)
-    document.getElementById("info").appendChild(enddate)
+    console.log(response)
+    var start = new Date(response["start-date"])
+    var end = new Date(response["end-date"])
+
+    var pdate = document.createElement("p")
+    pdate.textContent =
+      "The event id from " + start.toDateString() + " to " + end.toDateString()
+    $("#date").after(pdate)
 
     $.get(
       "http://localhost:8080/v1/person/".concat(response.contact),

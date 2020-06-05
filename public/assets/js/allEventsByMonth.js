@@ -1,66 +1,51 @@
 $(document).ready(function () {
-  var event = document.getElementById("event")
   var id = "1"
   var paramsString = window.location.search.toString()
   var searchParams = new URLSearchParams(paramsString)
   id = searchParams.get("event-id")
-  $.get("http://localhost:8080/v1/event", function (response) {
+  $.get("http://localhost:8080/v1/event/by-month", function (response) {
     response.forEach((item) => {
-      var months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
-      ]
+      var month = new Date(item.month)
       var h2 = document.createElement("h2")
-      h2.textContent =
-        months[item.month.substring(5)] + item.month.substring(0, 4)
+      h2.textContent = month.toLocaleString("default", {
+        month: "long",
+        year: "numeric",
+      })
+
       document.getElementById("listEvents").appendChild(h2)
-      response.elements.forEach((element) => {
+      item.events.forEach((item) => {
         var li = document.createElement("li")
+        var div = document.createElement("div")
+        div.className = "row p-3"
+
+        var img = document.createElement("img")
+        img.src = "/assets/image/" + item.photo_description + ".jpg"
+        img.className = "col-3 d-none d-md-block"
+
+        var divtext = document.createElement("div")
+        divtext.className = "col-9 align-self-center"
 
         var a = document.createElement("a")
-        var p = document.createElement("p")
-        var date = new String()
-        if (element["start_date"] == element["end_date"]) {
-          var tempdate =
-            element["start_date"].substring(8) +
-            "/" +
-            element["start_date"].substring(5, 7) +
-            "/" +
-            element["start_date"].substring(8).substring(0, 4)
-          date = "On " + tempdate
-        } else {
-          var tempdate =
-            element["start_date"].substring(8) +
-            "/" +
-            element["start_date"].substring(5, 7) +
-            "/" +
-            element["start_date"].substring(8).substring(0, 4)
-          var tempdate2 =
-            element["end_date"].substring(8) +
-            "/" +
-            element["end_date"].substring(5, 7) +
-            "/" +
-            element["end_date"].substring(8).substring(0, 4)
-          date = "From " + tempdate + "to" + tempdate2
-        }
+        a.textContent = item.name
+        a.href = "/pages/event.html?event-id=" + item.id
 
+        var pdes = document.createElement("p")
+        pdes.textContent = item.description
+
+        var p = document.createElement("p")
+        var start = new Date(item.start_date)
+        var end = new Date(item.end_date)
         p.textContent =
-          element.description + document.createElement("br") + date
-        a.textContent = element.name
-        a.href = "/pages/event.html?event-id=" + element.id
-        li.appendChild(a)
-        li.appendChild(p)
-        document.getElementById("listEvents").appendChild(li)
+          "From " + start.toDateString() + " to " + end.toDateString()
+
+        divtext.append(a)
+        divtext.append(pdes)
+        divtext.append(p)
+
+        div.append(img)
+        div.append(divtext)
+        li.append(div)
+        document.getElementById("listEvents").append(li)
       })
     })
   })
