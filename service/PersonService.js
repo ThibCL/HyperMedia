@@ -87,7 +87,7 @@ exports.getPersonByID = function (personId) {
       })
 
       var resp = {
-        "person-id": person[0].id || personId,
+        "person-id": person[0].person_id || personId,
         "first-name": person[0].first_name,
         "last-name": person[0].last_name,
         description: person[0].description,

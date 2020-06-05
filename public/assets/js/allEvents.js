@@ -3,7 +3,9 @@ $(document).ready(function () {
   var paramsString = window.location.search.toString()
   var searchParams = new URLSearchParams(paramsString)
   id = searchParams.get("event-id")
-  $.get("http://localhost:8080/v1/event", function (response) {
+  $.get("https://agirpourlenvironnement.herokuapp.com/v1/event", function (
+    response
+  ) {
     response.forEach((item) => {
       var li = document.createElement("li")
       var div = document.createElement("div")

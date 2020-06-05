@@ -3,13 +3,15 @@ $(document).ready(function () {
 })
 
 function set_content() {
-  $.get("http://localhost:8080/v1/event", function (response) {
+  $.get("https://agirpourlenvironnement.herokuapp.com/v1/event", function (
+    response
+  ) {
     set_elem(response)
   })
 }
 
 function set_elem(events) {
-  for (i = 0; i < events.length / 4; i++) {
+  for (i = 0; i < events.length / 3; i++) {
     var li = document.createElement("li")
     li["data-target"] = "#carouselExampleIndicators"
     li["data-slide-to"] = i
@@ -18,10 +20,10 @@ function set_elem(events) {
     var div = document.createElement("div")
     div.className = "carousel-item"
 
-    var sub = events.slice(4 * i, 4 * (i + 1))
+    var sub = events.slice(3 * i, 3 * (i + 1))
     console.log(sub)
     for (j = 0; j < sub.length; j++) {
-      var card = create_card(events[4 * i + j])
+      var card = create_card(events[3 * i + j])
       div.appendChild(card)
     }
 
@@ -33,8 +35,8 @@ function set_elem(events) {
 
 function create_card(event) {
   var div = document.createElement("div")
-  div.className = "card col-3 p-3"
-  div.style = "width: 18rem; float:left;"
+  div.className = "card col-md-4 col-sm-12 p-3"
+  div.style = "float:left;"
 
   var img = document.createElement("img")
   img.src = "/assets/image/" + event.photo_description + ".jpg"

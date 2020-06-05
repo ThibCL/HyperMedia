@@ -6,11 +6,14 @@ async function set_content() {
   var searchParams = new URLSearchParams(location.search)
   var id = searchParams.get("person-id")
 
-  $.get("http://localhost:8080/v1/person/" + id, function (response) {
-    set_personName(response["last-name"], response["first-name"])
-    set_photos(response.photo)
-    set_description(response.description)
-  })
+  $.get(
+    "https://agirpourlenvironnement.herokuapp.com/v1/person/" + id,
+    function (response) {
+      set_personName(response["last-name"], response["first-name"])
+      set_photos(response.photo)
+      set_description(response.description)
+    }
+  )
 }
 
 function set_personName(lastName, firstName) {

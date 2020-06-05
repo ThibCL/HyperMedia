@@ -7,12 +7,15 @@ async function set_content() {
   var searchParams = new URLSearchParams(location.search)
   var id = searchParams.get("service-id")
 
-  $.get("http://localhost:8080/v1/service/" + id, function (response) {
-    set_serviceName(response.name)
-    set_presentation(response.presentation)
-    set_practicalInfo(response["practical-info"])
-    set_photos(response.photo)
-  })
+  $.get(
+    "https://agirpourlenvironnement.herokuapp.com/v1/service/" + id,
+    function (response) {
+      set_serviceName(response.name)
+      set_presentation(response.presentation)
+      set_practicalInfo(response["practical-info"])
+      set_photos(response.photo)
+    }
+  )
 
   $("#involves").attr("href", "/pages/involves.html?service-id=" + id)
   $("#events-related").attr("href", "/pages/present.html?service-id=" + id)
@@ -65,7 +68,9 @@ function set_navigation() {
   var searchParams = new URLSearchParams(location.search)
   var id = searchParams.get("service-id")
 
-  $.get("http://localhost:8080/v1/service", function (response) {
+  $.get("https://agirpourlenvironnement.herokuapp.com/v1/service", function (
+    response
+  ) {
     response.forEach((item) => {
       var li = document.createElement("li")
       li.className = "nav-item"
