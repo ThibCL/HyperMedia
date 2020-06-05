@@ -7,7 +7,8 @@ async function set_content() {
   var id = searchParams.get("service-id")
 
   $.get(
-    "http://localhost:8080/v1/person/involved-in?service-id=" + id,
+    "https://agirpourlenvironnement.herokuapp.com/v1/person/involved-in?service-id=" +
+      id,
     function (response) {
       response.forEach(function (item) {
         create_item(item)
@@ -15,9 +16,12 @@ async function set_content() {
     }
   )
 
-  $.get("http://localhost:8080/v1/service/" + id, function (response) {
-    set_breadcrum(response.name, id)
-  })
+  $.get(
+    "https://agirpourlenvironnement.herokuapp.com/v1/service/" + id,
+    function (response) {
+      set_breadcrum(response.name, id)
+    }
+  )
 
   set_backButton(id)
 }

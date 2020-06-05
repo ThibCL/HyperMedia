@@ -3,7 +3,9 @@ $(document).ready(function () {
 })
 
 function set_list() {
-  $.get("http://localhost:8080/v1/person", function (response) {
+  $.get("https://agirpourlenvironnement.herokuapp.com/v1/person", function (
+    response
+  ) {
     var set = new Set(response.map((x) => x.last_name[0].toUpperCase()))
     var index = [...set]
     create_lists(index)

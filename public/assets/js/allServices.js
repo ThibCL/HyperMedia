@@ -3,7 +3,9 @@ $(document).ready(function () {
 })
 
 function set_list() {
-  $.get("http://localhost:8080/v1/service", function (response) {
+  $.get("https://agirpourlenvironnement.herokuapp.com/v1/service", function (
+    response
+  ) {
     response.forEach((item) => {
       create_item(item)
     })

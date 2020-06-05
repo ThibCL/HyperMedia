@@ -101,7 +101,7 @@ exports.getAllEventByMonth = function () {
         var month = new Date(
           element.start_date.getFullYear(),
           element.start_date.getMonth(),
-          0
+          4
         )
 
         eventmonth[month]
@@ -111,6 +111,7 @@ exports.getAllEventByMonth = function () {
 
       var resp = []
       for (let [key, value] of Object.entries(eventmonth)) {
+        console.log(key)
         resp.push({ month: key, events: value })
       }
 
@@ -131,8 +132,17 @@ exports.getEventByID = function (eventId) {
   return new Promise(async function (resolve, reject) {
     try {
       var event = await sqlDb("event")
-        .leftJoin("event_photo", "event.id", "=", "event_photo.id")
+        .leftJoin("event_photo", "event.id", "=", "event_id")
         .where("event.id", eventId)
+        .select(
+          "title",
+          "event.id",
+          "name",
+          "presentation",
+          "start_date",
+          "end_date",
+          "contact"
+        )
 
       if (event.length == 0) {
         reject({
@@ -143,6 +153,7 @@ exports.getEventByID = function (eventId) {
 
       var photos = []
       event.forEach((element) => {
+        console.log(element)
         element.title != null && photos.push(element.title)
       })
 
@@ -186,7 +197,14 @@ exports.getEventPresentsService = function (serviceId) {
       var resp = await sqlDb("event")
         .whereIn("id", ids)
         .orderBy("start_date", "desc")
-        .select("id", "description", "name", "start_date", "end_date")
+        .select(
+          "id",
+          "description",
+          "name",
+          "start_date",
+          "end_date",
+          "photo_description"
+        )
 
       resolve(resp)
     } catch (e) {
