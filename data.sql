@@ -2,17 +2,17 @@ insert into service (name,description,photo_description,presentation)
 values ('Energy/Climat','This service aims to find alternative solutions to reduce the impact of the man on the planet.',
 	   'energy-service',
 	   'Deforestation, greenhouse gas emissions, global warming, major threats to biodiversity, noise pollution, air quality degradation, soil artificialisation... Our means of transport are the cause of many ecological disasters. And meanwhile, the SNCF is closing stations and stopping night trains. Meanwhile, motorways are being built. We need to stop this process and promote sustainable modes of transport as soon as possible! Lets put pressure on the public authorities so that at last real alternatives to the plane and the car are put in place.');
-       insert into service (name,description,photo_description,presentation)
 insert into service_photo(title, service_id) values ('aviation',1);
 insert into service_photo(title, service_id) values ('palme',1);
 insert into service_photo(title, service_id) values ('autoroute',1);
 insert into service_info(info, service_id) values ('71% of French people are opposed to the incorporation of palm oil in fuels (Ipsos/Transports and Environment poll - 21/11/2018)',1);
 
+insert into service (name,description,photo_description,presentation)
 values ('Agriculture/Bio','This service aims to reduce to utilization of the pesticide in the agriculture and promote bio.',
 	   'agriculture-service',
 	   'The most environmentally and socially virtuous agriculture seems to bother part of the agricultural world and policy makers in our country.
 Organic farming aids partially abolished in 2017, 3 years delay in payment of organic aids, risk of diversion of another part of the organic aids to other labels, specifications of the organic label mishandled...
-In the summer of 2017, alongside the National Federation of Organic Agriculture, Agir pour l\'Environnement denounced the lack of state support for organic farming in France. Nearly 2 years later, what we feared was happening: the delay in paying organic aid was leading some organic farms into serious financial difficulties, because they were not receiving the sums that were necessary for the transformation of their farming system - and while the expenses were incurred with confidence.');
+In the summer of 2017, alongside the National Federation of Organic Agriculture, Agir pour l Environnement denounced the lack of state support for organic farming in France. Nearly 2 years later, what we feared was happening: the delay in paying organic aid was leading some organic farms into serious financial difficulties, because they were not receiving the sums that were necessary for the transformation of their farming system - and while the expenses were incurred with confidence.');
 insert into service_photo(title, service_id) values ('pesticide',2);
 insert into service_photo(title, service_id) values ('aviation',2);
 insert into service_info(info, service_id) values ('Despite its commitments, the State has still not paid out all the aid promised since 2016, thus putting thousands of organic farmers in difficulty. Some farmers are as much as 30,000 euros late in payment, causing them serious financial damage.',2);

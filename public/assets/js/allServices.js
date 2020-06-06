@@ -34,7 +34,7 @@ function create_item(item) {
   p.textContent = item.description
 
   var text = document.createElement("div")
-  text.className = "col-9 align-self-center"
+  text.className = "col-md-9 col-sm-12 align-self-center"
   text.appendChild(a)
   text.appendChild(p)
 

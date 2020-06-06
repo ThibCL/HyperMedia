@@ -138,7 +138,7 @@ $(document).ready(function () {
 
       var pdate = document.createElement("p")
       pdate.textContent =
-        "The event id from " +
+        "The event is from " +
         start.toDateString() +
         " to " +
         end.toDateString()
@@ -148,13 +148,13 @@ $(document).ready(function () {
         "https://agirpourlenvironnement.herokuapp.com/v1/person/".concat(
           response.contact
         ),
-        function (person) {
+        function (response) {
           var contact = document.getElementById("contact")
-          contact.textContent = person["first-name"]
+          contact.textContent = response["first-name"]
             .concat(" ")
-            .concat(person["last-name"])
+            .concat(response["last-name"])
           contact.href = "https://agirpourlenvironnement.herokuapp.com/pages/person.html?person-id=".concat(
-            person["person-id"]
+            response["person-id"]
           )
         }
       )

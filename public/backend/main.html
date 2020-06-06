@@ -45,8 +45,7 @@
     </blockquote>
     <h2 id="links-to-other-deliverables">Links to other deliverables</h2>
     <ul>
-        <li>Deliverable D0: the web application is accessible at <a
-                href="https://agirpourlenvironnement.herokuapp.com">this
+        <li>Deliverable D0: the web application is accessible at <a href="http://localhost:8080">this
                 address</a>.</li>
         <li>Deliverable D2: the YAML or JSON file containing the specification
             of the app API can be found at <a href="https://agirpourlenvironnement.herokuapp.com/backend/spec.yaml">this
@@ -100,24 +99,30 @@
     <p>
         For the backend of the application we used the language Javascript with the environment NodeJs to help
         implementing the server.
+
         Moreover we used the library 'knex.js' for the SQL queries.
-        For the tools we used VsCode as text editor that is really helpful with the different extension and also Github
+        For the tools we used VsCode as text editor that is really helpful with the different extensions and also Github
         to be able to develop
         the application at two and review the work of the other one.
     <h3 id="discussion">Discussion</h3>
     <p>Describe here:</p>
     <ul>
-        <li>How did you make sure your web application adheres to the provided
-            OpenAPI specification? Which method did you use to test all APIs
-            endpoints against the expected response?</li>
-        <li>Why do you think your web application adheres to common practices to
-            partition a REST-based web application (static assets vs.
-            application data)</li>
-        <li>Describe synthetically why and how did you manage session state,
-            what are the state change triggering actions (e.g., POST to login
-            etc..).</li>
-        <li>Which technology did you use (relational or a no-SQL database) for
-            managing the data model?</li>
+        <li>
+            We used the swagger ui tool to test that the web application adheres to the OpenAPI specification.
+            Indeed we used the feature "Try it out" to check that the response provided by the application correspond
+            to the specification.
+        </li>
+        <li>Our web application adheres to common practices to partition a REST-based web application because we
+            separate
+            the static assets (bootstrap, css html) and the data. In fact the API can be used without the front to
+            retrieve
+            all the information about the association and after we used these information to populate the html pages.
+        </li>
+        <li>For our qpplication we decided to not do it because it was not necessary to connect. So all the endpoints
+            are Get requert to retrieve data from the back.
+        </li>
+        <li>We decided to use a relationnal database since the schema of our data is static and not complicated.(see the
+            diagram above)</li>
     </ul>
     <h2 id="other-information">Other information</h2>
     <h3 id="task-assignment">Task assignment</h3>
@@ -144,24 +149,17 @@
         shown during lectures are not a valid response.
         Use TWO or more items of the form:</p>
     <blockquote>
-        <p>We took (full/partial) inspiration from API <XYZ>(link) for the part of the
-                API that manages <ABC> because of <REASON>.
-                        Or
-                        For the part of the API that manages <ABC> we considered/studied <XYZ>(link)
-                                because of <REASON> but wasn&#39;t completely fitting to our purpose because of</p>
+        <p></p>
         <p>
-            <REASON>.
         </p>
     </blockquote>
     <h3 id="learning-outcome">Learning outcome</h3>
     <p>The most important things we have learned during the project are:
     </p>
     <ul>
-        <li>Foo learned to write SQL queries and Javascript but wanted to know
-            more about caching, he&#39;s probably going to create his own startup
-            with what she has learned</li>
-        <li>Bar learned how to deploy on a cloud platform, he would have liked
-            to know more about promises for asynchronous code..</li>
+        <li>Lucas learned about responsive pages in html with js and bootstrap.</li>
+        <li>Lucas also learned about Api and how to make use of them</li>
+        <li>Thibault learn about responsivity and how with Bootstrap to handle the different sizes of screen</li>
     </ul>
     <p>The questions that remained unanswered are:</p>
     <ul>
@@ -169,7 +167,7 @@
     </ul>
     <p>Finally, how we will use in your everyday life the things we have learned:</p>
     <ul>
-        <li></li>
+        <li>Lucas wants to make a local for his personal use about the movies he watched, to keep track of it.</li>
     </ul>
 </body>
 

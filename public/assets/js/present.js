@@ -18,7 +18,7 @@ $(document).ready(function () {
         img.className = "col-3 d-none d-md-block"
 
         var divtext = document.createElement("div")
-        divtext.className = "col-9 align-self-center"
+        divtext.className = "col-md-9 col-sm-12 align-self-center"
 
         var a = document.createElement("a")
         a.textContent = item.name
@@ -53,7 +53,7 @@ $(document).ready(function () {
       document.getElementById("service").href =
         "/pages/service.html?service-id=" + id
       document.getElementById("title").textContent =
-        "Events that present the" + response.name + "service"
+        "Events that present the " + response.name + " service"
     }
   )
 })
