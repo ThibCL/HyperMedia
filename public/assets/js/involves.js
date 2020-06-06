@@ -39,9 +39,10 @@ function set_backButton(id) {
 
 function create_item(item) {
   var li = document.createElement("li")
-  li.className = "col-md-6 p-md-3"
+  li.className = "col-md-6 col-sm-12 p-md-3"
 
   var div = document.createElement("div")
+  div.className = "col-md-9 col-sm-12"
 
   var h3 = document.createElement("h3")
   h3.innerText = item.role

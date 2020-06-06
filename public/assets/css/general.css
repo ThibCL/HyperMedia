@@ -13,10 +13,14 @@ h2 {
 }
 
 a {
-  color: green;
+  color: rgb(128, 83, 0);
 }
 
 .carousel {
   border: green;
   border-width: 3px;
+}
+
+.breadcrumb > .active {
+  color: black;
 }
